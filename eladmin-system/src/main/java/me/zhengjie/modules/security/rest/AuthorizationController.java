@@ -31,11 +31,11 @@ import me.zhengjie.modules.security.config.bean.LoginCodeEnum;
 import me.zhengjie.modules.security.config.bean.LoginProperties;
 import me.zhengjie.modules.security.config.bean.SecurityProperties;
 import me.zhengjie.modules.security.security.TokenProvider;
+import me.zhengjie.modules.security.service.OnlineUserService;
 import me.zhengjie.modules.security.service.dto.AuthUserDto;
 import me.zhengjie.modules.security.service.dto.JwtUserDto;
-import me.zhengjie.modules.security.service.OnlineUserService;
-import me.zhengjie.utils.RsaUtils;
 import me.zhengjie.utils.RedisUtils;
+import me.zhengjie.utils.RsaUtils;
 import me.zhengjie.utils.SecurityUtils;
 import me.zhengjie.utils.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -45,7 +45,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

@@ -19,8 +19,8 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ZipUtil;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.ColumnInfo;
+import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.vo.TableInfo;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.repository.ColumnInfoRepository;
@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;

@@ -16,7 +16,6 @@
 package me.zhengjie.config;
 
 import lombok.Data;
-import me.zhengjie.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

@@ -15,27 +15,28 @@
 */
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.AnswerRecord;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.AnswerRecord;
 import me.zhengjie.repository.AnswerRecordRepository;
 import me.zhengjie.service.AnswerRecordService;
 import me.zhengjie.service.dto.AnswerRecordDto;
 import me.zhengjie.service.dto.AnswerRecordQueryCriteria;
 import me.zhengjie.service.mapstruct.AnswerRecordMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
+import me.zhengjie.utils.ValidationUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * @website https://eladmin.vip

@@ -17,6 +17,7 @@ package me.zhengjie.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 import java.sql.Timestamp;

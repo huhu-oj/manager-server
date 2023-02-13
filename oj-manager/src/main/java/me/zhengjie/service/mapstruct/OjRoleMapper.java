@@ -13,21 +13,20 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.dto;
+package me.zhengjie.service.mapstruct;
 
-import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
+import me.zhengjie.base.BaseMapper;
+import me.zhengjie.domain.OjRole;
+import me.zhengjie.service.dto.OjRoleDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
 * @date 2023-02-13
 **/
-@Data
-public class RoleQueryCriteria{
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface OjRoleMapper extends BaseMapper<OjRoleDto, OjRole> {
 
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String name;
 }

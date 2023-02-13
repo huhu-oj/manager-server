@@ -15,10 +15,10 @@
  */
 package me.zhengjie.service;
 
-import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.ColumnInfo;
+import me.zhengjie.domain.GenConfig;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

@@ -13,25 +13,16 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.dto;
+package me.zhengjie.repository;
 
-import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
+import me.zhengjie.domain.OjUser;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
 * @date 2023-02-13
 **/
-@Data
-public class UserQueryCriteria{
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String name;
-
-    /** 精确 */
-    @Query
-    private Integer classId;
+public interface OjUserRepository extends JpaRepository<OjUser, Long>, JpaSpecificationExecutor<OjUser> {
 }

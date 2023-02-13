@@ -15,12 +15,13 @@
 */
 package me.zhengjie.domain;
 
-import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

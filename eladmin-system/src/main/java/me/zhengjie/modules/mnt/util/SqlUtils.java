@@ -20,13 +20,17 @@ import com.alibaba.druid.util.StringUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.utils.CloseUtil;
+
 import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**

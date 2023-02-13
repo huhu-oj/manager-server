@@ -16,9 +16,9 @@
 package me.zhengjie.rest;
 
 import me.zhengjie.annotation.Log;
-import me.zhengjie.domain.User;
-import me.zhengjie.service.UserService;
-import me.zhengjie.service.dto.UserQueryCriteria;
+import me.zhengjie.domain.OjUser;
+import me.zhengjie.service.OjUserService;
+import me.zhengjie.service.dto.OjUserQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,50 +38,50 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "用户管理")
-@RequestMapping("/api/user")
-public class UserController {
+@RequestMapping("/api/ojUser")
+public class OjUserController {
 
-    private final UserService userService;
+    private final OjUserService ojUserService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('user:list')")
-    public void exportUser(HttpServletResponse response, UserQueryCriteria criteria) throws IOException {
-        userService.download(userService.queryAll(criteria), response);
+    @PreAuthorize("@el.check('ojUser:list')")
+    public void exportOjUser(HttpServletResponse response, OjUserQueryCriteria criteria) throws IOException {
+        ojUserService.download(ojUserService.queryAll(criteria), response);
     }
 
     @GetMapping
     @Log("查询用户")
     @ApiOperation("查询用户")
-    @PreAuthorize("@el.check('user:list')")
-    public ResponseEntity<Object> queryUser(UserQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+    @PreAuthorize("@el.check('ojUser:list')")
+    public ResponseEntity<Object> queryOjUser(OjUserQueryCriteria criteria, Pageable pageable){
+        return new ResponseEntity<>(ojUserService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增用户")
     @ApiOperation("新增用户")
-    @PreAuthorize("@el.check('user:add')")
-    public ResponseEntity<Object> createUser(@Validated @RequestBody User resources){
-        return new ResponseEntity<>(userService.create(resources),HttpStatus.CREATED);
+    @PreAuthorize("@el.check('ojUser:add')")
+    public ResponseEntity<Object> createOjUser(@Validated @RequestBody OjUser resources){
+        return new ResponseEntity<>(ojUserService.create(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改用户")
     @ApiOperation("修改用户")
-    @PreAuthorize("@el.check('user:edit')")
-    public ResponseEntity<Object> updateUser(@Validated @RequestBody User resources){
-        userService.update(resources);
+    @PreAuthorize("@el.check('ojUser:edit')")
+    public ResponseEntity<Object> updateOjUser(@Validated @RequestBody OjUser resources){
+        ojUserService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
     @Log("删除用户")
     @ApiOperation("删除用户")
-    @PreAuthorize("@el.check('user:del')")
-    public ResponseEntity<Object> deleteUser(@RequestBody Long[] ids) {
-        userService.deleteAll(ids);
+    @PreAuthorize("@el.check('ojUser:del')")
+    public ResponseEntity<Object> deleteOjUser(@RequestBody Long[] ids) {
+        ojUserService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

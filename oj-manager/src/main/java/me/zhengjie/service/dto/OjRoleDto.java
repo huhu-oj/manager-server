@@ -13,16 +13,28 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.repository;
+package me.zhengjie.service.dto;
 
-import me.zhengjie.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import lombok.Data;
+import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
+* @description /
 * @author nwl
 * @date 2023-02-13
 **/
-public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+@Data
+public class OjRoleDto implements Serializable {
+
+    /** id */
+    private Long id;
+
+    /** 名称 */
+    private String name;
+
+    private Timestamp createTime;
+
+    private Timestamp updateTime;
 }

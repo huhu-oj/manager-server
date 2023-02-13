@@ -19,13 +19,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.vo.EmailVo;
-import me.zhengjie.service.EmailService;
 import me.zhengjie.modules.system.service.VerifyService;
+import me.zhengjie.service.EmailService;
 import me.zhengjie.utils.enums.CodeBiEnum;
 import me.zhengjie.utils.enums.CodeEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Objects;
 
 /**

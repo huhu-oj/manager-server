@@ -13,34 +13,20 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.dto;
+package me.zhengjie.service.mapstruct;
 
-import lombok.Data;
-import java.sql.Timestamp;
-import java.io.Serializable;
+import me.zhengjie.base.BaseMapper;
+import me.zhengjie.domain.OjUser;
+import me.zhengjie.service.dto.OjUserDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://eladmin.vip
-* @description /
 * @author nwl
 * @date 2023-02-13
 **/
-@Data
-public class UserDto implements Serializable {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface OjUserMapper extends BaseMapper<OjUserDto, OjUser> {
 
-    /** id */
-    private Long id;
-
-    /** 名称 */
-    private String name;
-
-    /** 密码 */
-    private String password;
-
-    /** 班级 */
-    private Integer classId;
-
-    private Timestamp createTime;
-
-    private Timestamp updateTime;
 }

@@ -26,13 +26,19 @@ import java.io.Serializable;
 * @date 2023-02-13
 **/
 @Data
-public class RoleDto implements Serializable {
+public class OjUserDto implements Serializable {
 
     /** id */
     private Long id;
 
     /** 名称 */
     private String name;
+
+    /** 密码 */
+    private String password;
+
+    /** 班级 */
+    private Integer classId;
 
     private Timestamp createTime;
 

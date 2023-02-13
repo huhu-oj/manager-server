@@ -35,8 +35,8 @@ import java.io.Serializable;
 **/
 @Entity
 @Data
-@Table(name="oj_user")
-public class User implements Serializable {
+@Table(name="oj_role")
+public class OjRole implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,15 +49,6 @@ public class User implements Serializable {
     @ApiModelProperty(value = "名称")
     private String name;
 
-    @Column(name = "`password`",nullable = false)
-    @NotBlank
-    @ApiModelProperty(value = "密码")
-    private String password;
-
-    @Column(name = "`class_id`")
-    @ApiModelProperty(value = "班级")
-    private Integer classId;
-
     @Column(name = "`create_time`")
     @CreationTimestamp
     @ApiModelProperty(value = "createTime")
@@ -68,7 +59,7 @@ public class User implements Serializable {
     @ApiModelProperty(value = "updateTime")
     private Timestamp updateTime;
 
-    public void copy(User source){
+    public void copy(OjRole source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

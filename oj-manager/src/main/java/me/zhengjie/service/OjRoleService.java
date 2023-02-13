@@ -15,9 +15,9 @@
 */
 package me.zhengjie.service;
 
-import me.zhengjie.domain.Role;
-import me.zhengjie.service.dto.RoleDto;
-import me.zhengjie.service.dto.RoleQueryCriteria;
+import me.zhengjie.domain.OjRole;
+import me.zhengjie.service.dto.OjRoleDto;
+import me.zhengjie.service.dto.OjRoleQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author nwl
 * @date 2023-02-13
 **/
-public interface RoleService {
+public interface OjRoleService {
 
     /**
     * 查询数据分页
@@ -38,34 +38,34 @@ public interface RoleService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(RoleQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(OjRoleQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<RoleDto>
+    * @return List<OjRoleDto>
     */
-    List<RoleDto> queryAll(RoleQueryCriteria criteria);
+    List<OjRoleDto> queryAll(OjRoleQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return RoleDto
+     * @return OjRoleDto
      */
-    RoleDto findById(Long id);
+    OjRoleDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return RoleDto
+    * @return OjRoleDto
     */
-    RoleDto create(Role resources);
+    OjRoleDto create(OjRole resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(Role resources);
+    void update(OjRole resources);
 
     /**
     * 多选删除
@@ -79,5 +79,5 @@ public interface RoleService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<RoleDto> all, HttpServletResponse response) throws IOException;
+    void download(List<OjRoleDto> all, HttpServletResponse response) throws IOException;
 }

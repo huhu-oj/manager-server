@@ -18,19 +18,20 @@ package me.zhengjie.modules.system.service.impl;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.modules.system.domain.Dict;
 import me.zhengjie.modules.system.domain.DictDetail;
-import me.zhengjie.modules.system.repository.DictRepository;
-import me.zhengjie.modules.system.service.dto.DictDetailQueryCriteria;
-import me.zhengjie.utils.*;
 import me.zhengjie.modules.system.repository.DictDetailRepository;
+import me.zhengjie.modules.system.repository.DictRepository;
 import me.zhengjie.modules.system.service.DictDetailService;
 import me.zhengjie.modules.system.service.dto.DictDetailDto;
+import me.zhengjie.modules.system.service.dto.DictDetailQueryCriteria;
 import me.zhengjie.modules.system.service.mapstruct.DictDetailMapper;
+import me.zhengjie.utils.*;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Map;
 

@@ -16,9 +16,9 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import java.sql.Timestamp;
-import java.util.List;
 import me.zhengjie.annotation.Query;
+
+import java.sql.Timestamp;
 
 /**
 * @website https://eladmin.vip

@@ -15,7 +15,7 @@
 */
 package me.zhengjie.repository;
 
-import me.zhengjie.domain.Role;
+import me.zhengjie.domain.OjRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -24,5 +24,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 * @author nwl
 * @date 2023-02-13
 **/
-public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
+public interface OjRoleRepository extends JpaRepository<OjRole, Long>, JpaSpecificationExecutor<OjRole> {
 }

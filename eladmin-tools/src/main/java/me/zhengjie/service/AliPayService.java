@@ -15,8 +15,8 @@
  */
 package me.zhengjie.service;
 
-import me.zhengjie.domain.vo.TradeVo;
 import me.zhengjie.domain.AlipayConfig;
+import me.zhengjie.domain.vo.TradeVo;
 
 /**
  * @author Zheng Jie

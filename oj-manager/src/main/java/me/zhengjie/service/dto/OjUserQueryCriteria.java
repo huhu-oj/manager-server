@@ -13,20 +13,25 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.mapstruct;
+package me.zhengjie.service.dto;
 
-import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.User;
-import me.zhengjie.service.dto.UserDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import lombok.Data;
+import java.util.List;
+import me.zhengjie.annotation.Query;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
 * @date 2023-02-13
 **/
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper extends BaseMapper<UserDto, User> {
+@Data
+public class OjUserQueryCriteria{
 
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
+    private String name;
+
+    /** 精确 */
+    @Query
+    private Integer classId;
 }

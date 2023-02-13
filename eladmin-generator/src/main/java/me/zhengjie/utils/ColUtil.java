@@ -15,7 +15,9 @@
  */
 package me.zhengjie.utils;
 
-import org.apache.commons.configuration.*;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

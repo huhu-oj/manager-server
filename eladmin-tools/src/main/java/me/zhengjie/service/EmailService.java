@@ -15,8 +15,8 @@
  */
 package me.zhengjie.service;
 
-import me.zhengjie.domain.vo.EmailVo;
 import me.zhengjie.domain.EmailConfig;
+import me.zhengjie.domain.vo.EmailVo;
 
 /**
  * @author Zheng Jie

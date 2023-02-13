@@ -15,9 +15,9 @@
 */
 package me.zhengjie.service;
 
-import me.zhengjie.domain.User;
-import me.zhengjie.service.dto.UserDto;
-import me.zhengjie.service.dto.UserQueryCriteria;
+import me.zhengjie.domain.OjUser;
+import me.zhengjie.service.dto.OjUserDto;
+import me.zhengjie.service.dto.OjUserQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author nwl
 * @date 2023-02-13
 **/
-public interface UserService {
+public interface OjUserService {
 
     /**
     * 查询数据分页
@@ -38,34 +38,34 @@ public interface UserService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(UserQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(OjUserQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<UserDto>
+    * @return List<OjUserDto>
     */
-    List<UserDto> queryAll(UserQueryCriteria criteria);
+    List<OjUserDto> queryAll(OjUserQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return UserDto
+     * @return OjUserDto
      */
-    UserDto findById(Long id);
+    OjUserDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return UserDto
+    * @return OjUserDto
     */
-    UserDto create(User resources);
+    OjUserDto create(OjUser resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(User resources);
+    void update(OjUser resources);
 
     /**
     * 多选删除
@@ -79,5 +79,5 @@ public interface UserService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<UserDto> all, HttpServletResponse response) throws IOException;
+    void download(List<OjUserDto> all, HttpServletResponse response) throws IOException;
 }

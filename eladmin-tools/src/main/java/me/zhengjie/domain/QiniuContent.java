@@ -18,6 +18,7 @@ package me.zhengjie.domain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;

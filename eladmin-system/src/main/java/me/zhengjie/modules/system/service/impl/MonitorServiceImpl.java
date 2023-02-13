@@ -23,12 +23,16 @@ import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
-import oshi.hardware.*;
+import oshi.hardware.CentralProcessor;
+import oshi.hardware.GlobalMemory;
+import oshi.hardware.HardwareAbstractionLayer;
+import oshi.hardware.VirtualMemory;
 import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 import oshi.util.Util;
+
 import java.lang.management.ManagementFactory;
 import java.text.DecimalFormat;
 import java.util.*;
