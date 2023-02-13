@@ -17,6 +17,7 @@ package me.zhengjie.modules.system.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 

@@ -118,3 +118,12 @@ file:
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
+
+
+#yml变量
+#数据库
+DB_HOST: 43.139.47.68
+DB_PORT: 3306
+DB_USER: root
+DB_PWD: birthdayis1123
+REDIS_HOST: 43.139.47.68

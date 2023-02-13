@@ -20,6 +20,7 @@ import com.wf.captcha.base.Captcha;
 import lombok.Data;
 import me.zhengjie.exception.BadConfigurationException;
 import me.zhengjie.utils.StringUtils;
+
 import java.awt.*;
 import java.util.Objects;
 
