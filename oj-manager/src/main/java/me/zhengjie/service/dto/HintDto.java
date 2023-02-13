@@ -23,7 +23,7 @@ import java.io.Serializable;
 * @website https://eladmin.vip
 * @description /
 * @author nwl
-* @date 2023-02-07
+* @date 2023-02-13
 **/
 @Data
 public class HintDto implements Serializable {
