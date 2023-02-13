@@ -15,18 +15,17 @@
 */
 package me.zhengjie.domain;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
+import cn.hutool.core.bean.BeanUtil;
+import io.swagger.annotations.ApiModelProperty;
+import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.*;
 import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
@@ -61,7 +60,8 @@ public class Clazz implements Serializable {
     @ApiModelProperty(value = "updateTime")
     private Timestamp updateTime;
 
-    @Column(name = "`grade_id`")
+    @Column(name = "`grade_id`",nullable = false)
+    @NotNull
     @ApiModelProperty(value = "年级")
     private Long gradeId;
 

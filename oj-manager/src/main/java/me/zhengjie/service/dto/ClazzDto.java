@@ -16,9 +16,8 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip

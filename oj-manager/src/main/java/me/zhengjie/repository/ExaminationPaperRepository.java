@@ -22,7 +22,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /**
 * @website https://eladmin.vip
 * @author nwl
-* @date 2023-02-06
+* @date 2023-02-13
 **/
 public interface ExaminationPaperRepository extends JpaRepository<ExaminationPaper, Long>, JpaSpecificationExecutor<ExaminationPaper> {
 }
