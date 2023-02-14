@@ -64,6 +64,10 @@ public class Knowledge implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
 
+    @Column(name = "`description_html`")
+    @ApiModelProperty(value = "渲染文本")
+    private String descriptionHtml;
+
     public void copy(Knowledge source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

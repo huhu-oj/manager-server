@@ -15,34 +15,33 @@
 */
 package me.zhengjie.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.Hint;
+import me.zhengjie.utils.ValidationUtil;
+import me.zhengjie.utils.FileUtil;
+import lombok.RequiredArgsConstructor;
 import me.zhengjie.repository.HintRepository;
 import me.zhengjie.service.HintService;
 import me.zhengjie.service.dto.HintDto;
 import me.zhengjie.service.dto.HintQueryCriteria;
 import me.zhengjie.service.mapstruct.HintMapper;
-import me.zhengjie.utils.FileUtil;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.QueryHelp;
-import me.zhengjie.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.PageUtil;
+import me.zhengjie.utils.QueryHelp;
 import java.util.List;
 import java.util.Map;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
 * @website https://eladmin.vip
 * @description 服务实现
 * @author nwl
-* @date 2023-02-13
+* @date 2023-02-14
 **/
 @Service
 @RequiredArgsConstructor
@@ -101,6 +100,7 @@ public class HintServiceImpl implements HintService {
             map.put("所属题目", hint.getProblemId());
             map.put("创建时间", hint.getCreateTime());
             map.put("更新时间", hint.getUpdateTime());
+            map.put("渲染文本", hint.getDescriptionHtml());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

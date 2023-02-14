@@ -24,7 +24,7 @@ import org.mapstruct.ReportingPolicy;
 /**
 * @website https://eladmin.vip
 * @author nwl
-* @date 2023-02-13
+* @date 2023-02-14
 **/
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface HintMapper extends BaseMapper<HintDto, Hint> {

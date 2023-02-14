@@ -19,17 +19,16 @@ import me.zhengjie.domain.Hint;
 import me.zhengjie.service.dto.HintDto;
 import me.zhengjie.service.dto.HintQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @website https://eladmin.vip
 * @description 服务接口
 * @author nwl
-* @date 2023-02-13
+* @date 2023-02-14
 **/
 public interface HintService {
 

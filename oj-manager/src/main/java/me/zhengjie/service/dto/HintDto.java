@@ -16,15 +16,14 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
 * @description /
 * @author nwl
-* @date 2023-02-13
+* @date 2023-02-14
 **/
 @Data
 public class HintDto implements Serializable {
@@ -42,4 +41,7 @@ public class HintDto implements Serializable {
 
     /** 更新时间 */
     private Timestamp updateTime;
+
+    /** 渲染文本 */
+    private String descriptionHtml;
 }

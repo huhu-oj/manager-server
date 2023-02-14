@@ -100,6 +100,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             map.put("描述", knowledge.getDescription());
             map.put("创建时间", knowledge.getCreateTime());
             map.put("更新时间", knowledge.getUpdateTime());
+            map.put("渲染文本", knowledge.getDescriptionHtml());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

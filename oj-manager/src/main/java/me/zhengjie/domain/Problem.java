@@ -15,23 +15,23 @@
 */
 package me.zhengjie.domain;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
+import cn.hutool.core.bean.BeanUtil;
+import io.swagger.annotations.ApiModelProperty;
+import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
+import javax.validation.constraints.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.*;
 import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
 * @description /
 * @author nwl
-* @date 2023-02-07
+* @date 2023-02-14
 **/
 @Entity
 @Data
@@ -63,6 +63,10 @@ public class Problem implements Serializable {
     @UpdateTimestamp
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
+
+    @Column(name = "`description_html`")
+    @ApiModelProperty(value = "渲染文本")
+    private String descriptionHtml;
 
     public void copy(Problem source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

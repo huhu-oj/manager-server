@@ -24,7 +24,7 @@ import org.mapstruct.ReportingPolicy;
 /**
 * @website https://eladmin.vip
 * @author nwl
-* @date 2023-02-07
+* @date 2023-02-14
 **/
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ProblemMapper extends BaseMapper<ProblemDto, Problem> {

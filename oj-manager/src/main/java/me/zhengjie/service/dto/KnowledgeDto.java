@@ -41,4 +41,7 @@ public class KnowledgeDto implements Serializable {
 
     /** 更新时间 */
     private Timestamp updateTime;
+
+    /** 渲染文本 */
+    private String descriptionHtml;
 }
