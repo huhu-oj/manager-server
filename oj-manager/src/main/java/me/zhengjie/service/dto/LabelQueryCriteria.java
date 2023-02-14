@@ -16,12 +16,13 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import java.util.List;
 import me.zhengjie.annotation.Query;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
-* @date 2023-02-07
+* @date 2023-02-14
 **/
 @Data
 public class LabelQueryCriteria{

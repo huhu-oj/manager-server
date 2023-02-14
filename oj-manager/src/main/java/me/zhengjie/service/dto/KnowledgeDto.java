@@ -16,22 +16,21 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
 * @description /
 * @author nwl
-* @date 2023-02-07
+* @date 2023-02-14
 **/
 @Data
 public class KnowledgeDto implements Serializable {
 
     private Long id;
 
-    /** 知识点名称 */
+    /** 名称 */
     private String name;
 
     /** 描述 */

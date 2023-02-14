@@ -19,17 +19,16 @@ import me.zhengjie.domain.Label;
 import me.zhengjie.service.dto.LabelDto;
 import me.zhengjie.service.dto.LabelQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @website https://eladmin.vip
 * @description 服务接口
 * @author nwl
-* @date 2023-02-07
+* @date 2023-02-14
 **/
 public interface LabelService {
 
