@@ -19,6 +19,7 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.Label;
 import me.zhengjie.service.LabelService;
 import me.zhengjie.service.dto.LabelQueryCriteria;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -83,5 +84,12 @@ public class LabelController {
     public ResponseEntity<Object> deleteLabel(@RequestBody Long[] ids) {
         labelService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("all")
+    @Log("查询所有标签")
+    @ApiOperation("查询所有标签")
+    @PreAuthorize("@el.check('label:list')")
+    public ResponseEntity<Object> queryAllLabel(LabelQueryCriteria criteria){
+        return new ResponseEntity<>(labelService.queryAll(criteria),HttpStatus.OK);
     }
 }
