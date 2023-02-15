@@ -70,7 +70,7 @@ public class Problem implements Serializable {
     @ApiModelProperty(value = "渲染文本")
     private String descriptionHtml;
 
-    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.LAZY)
+    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "`problem_id`")
     private List<Hint> hints;
     public void copy(Problem source){
