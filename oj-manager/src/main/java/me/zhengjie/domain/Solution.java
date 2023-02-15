@@ -54,7 +54,7 @@ public class Solution implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
 
-    @Column(name = "`problem_id`",nullable = false)
+    @Column(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")
     private Long problemId;

@@ -45,12 +45,12 @@ public class AnswerRecord implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "`problem_id`",nullable = false)
+    @Column(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")
     private Long problemId;
 
-    @Column(name = "`user_id`",nullable = false)
+    @Column(name = "`user_id`")
     @NotNull
     @ApiModelProperty(value = "所属用户")
     private Long userId;
@@ -65,7 +65,7 @@ public class AnswerRecord implements Serializable {
     @ApiModelProperty(value = "执行时间")
     private Long executeTime;
 
-    @Column(name = "`language_id`",nullable = false)
+    @Column(name = "`language_id`")
     @NotNull
     @ApiModelProperty(value = "所属语言")
     private Long languageId;
@@ -90,7 +90,7 @@ public class AnswerRecord implements Serializable {
     @ApiModelProperty(value = "未通过数")
     private Integer notPassNum;
 
-    @Column(name = "`execute_result_id`",nullable = false)
+    @Column(name = "`execute_result_id`")
     @NotNull
     @ApiModelProperty(value = "执行结果")
     private Long executeResultId;

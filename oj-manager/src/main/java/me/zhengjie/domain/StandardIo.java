@@ -55,7 +55,7 @@ public class StandardIo implements Serializable {
     @ApiModelProperty(value = "输出")
     private String output;
 
-    @Column(name = "`problem_id`",nullable = false)
+    @Column(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")
     private Long problemId;

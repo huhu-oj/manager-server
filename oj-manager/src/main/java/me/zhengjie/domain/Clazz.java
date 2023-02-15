@@ -60,7 +60,7 @@ public class Clazz implements Serializable {
     @ApiModelProperty(value = "updateTime")
     private Timestamp updateTime;
 
-    @Column(name = "`grade_id`",nullable = false)
+    @Column(name = "`grade_id`")
     @NotNull
     @ApiModelProperty(value = "年级")
     private Long gradeId;
