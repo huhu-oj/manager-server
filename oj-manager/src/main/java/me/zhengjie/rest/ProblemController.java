@@ -84,4 +84,12 @@ public class ProblemController {
         problemService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("all")
+    @Log("查询所有问题")
+    @ApiOperation("查询所有问题")
+    @PreAuthorize("@el.check('problem:list')")
+    public ResponseEntity<Object> queryAllProblem(ProblemQueryCriteria criteria){
+        return new ResponseEntity<>(problemService.queryAll(criteria),HttpStatus.OK);
+    }
+
 }

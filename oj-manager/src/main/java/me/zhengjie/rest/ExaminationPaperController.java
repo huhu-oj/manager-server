@@ -84,4 +84,12 @@ public class ExaminationPaperController {
         examinationPaperService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("all")
+    @Log("查询所有试卷")
+    @ApiOperation("查询所有试卷")
+    @PreAuthorize("@el.check('examinationPaper:list')")
+    public ResponseEntity<Object> queryAllExaminationPaper(ExaminationPaperQueryCriteria criteria){
+        return new ResponseEntity<>(examinationPaperService.queryAll(criteria),HttpStatus.OK);
+    }
+
 }

@@ -86,4 +86,12 @@ public class GradeController {
         gradeService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("all")
+    @Log("查询所有年级")
+    @ApiOperation("查询所有年级")
+    @PreAuthorize("@el.check('grade:list')")
+    public ResponseEntity<Object> queryAllGrade(GradeQueryCriteria criteria){
+        return new ResponseEntity<>(gradeService.queryAll(criteria),HttpStatus.OK);
+    }
 }
