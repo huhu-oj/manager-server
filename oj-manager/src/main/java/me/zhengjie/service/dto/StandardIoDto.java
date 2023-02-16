@@ -16,6 +16,7 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import me.zhengjie.domain.Problem;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -38,7 +39,7 @@ public class StandardIoDto implements Serializable {
     private String output;
 
     /** 所属题目 */
-    private Long problemId;
+    private Problem problem;
 
     private Timestamp createTime;
 

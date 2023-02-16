@@ -17,12 +17,18 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -31,7 +37,8 @@ import java.io.Serializable;
 * @date 2023-02-13
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_execute_result")
 public class ExecuteResult implements Serializable {
 
@@ -50,6 +57,9 @@ public class ExecuteResult implements Serializable {
     @ApiModelProperty(value = "颜色")
     private String color;
 
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy = "executeResult")
+    private List<AnswerRecord> answerRecords;
     public void copy(ExecuteResult source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

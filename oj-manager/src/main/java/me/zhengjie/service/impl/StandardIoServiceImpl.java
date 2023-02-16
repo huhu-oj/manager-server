@@ -99,7 +99,7 @@ public class StandardIoServiceImpl implements StandardIoService {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("输入", standardIo.getInput());
             map.put("输出", standardIo.getOutput());
-            map.put("所属题目", standardIo.getProblemId());
+            map.put("所属题目", standardIo.getProblem().getTitle());
             map.put(" createTime",  standardIo.getCreateTime());
             map.put(" updateTime",  standardIo.getUpdateTime());
             list.add(map);

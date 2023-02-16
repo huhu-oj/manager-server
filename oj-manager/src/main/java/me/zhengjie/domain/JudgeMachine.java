@@ -15,6 +15,8 @@
 */
 package me.zhengjie.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +25,13 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -34,7 +40,8 @@ import java.io.Serializable;
 * @date 2023-02-13
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_judge_machine")
 public class JudgeMachine implements Serializable {
 
@@ -83,6 +90,13 @@ public class JudgeMachine implements Serializable {
     @ApiModelProperty(value = "支持的语言")
     private String supportLanguage;
 
+    @ManyToMany
+    @JoinTable(
+            name = "oj_judge_machine_language",
+            joinColumns = {@JoinColumn(name = "judge_machine_id")},
+            inverseJoinColumns = {@JoinColumn(name = "language_id")}
+    )
+    private List<Language> languages;
     public void copy(JudgeMachine source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

@@ -17,8 +17,12 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -35,7 +39,8 @@ import java.sql.Timestamp;
 * @date 2023-02-13
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_test")
 public class Test implements Serializable {
 
@@ -55,10 +60,15 @@ public class Test implements Serializable {
     @ApiModelProperty(value = "备注")
     private String description;
 
-    @Column(name = "`examination_paper_id`",nullable = false)
+//    @Column(name = "`examination_paper_id`",nullable = false)
+//    @NotNull
+//    @ApiModelProperty(value = "试卷id")
+//    private Long examinationPaperId;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`examination_paper_id`")
     @NotNull
     @ApiModelProperty(value = "试卷id")
-    private Long examinationPaperId;
+    private ExaminationPaper examinationPaper;
 
     @Column(name = "`start_time`",nullable = false)
     @NotNull

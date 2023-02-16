@@ -16,8 +16,12 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import me.zhengjie.domain.Label;
+import me.zhengjie.domain.Problem;
+
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -37,7 +41,7 @@ public class SolutionDto implements Serializable {
     private String description;
 
     /** 所属题目 */
-    private Long problemId;
+    private Problem problem;
 
     /** 创建时间 */
     private Timestamp createTime;
@@ -47,4 +51,6 @@ public class SolutionDto implements Serializable {
 
     /** 渲染文本 */
     private String descriptionHtml;
+
+    private List<Label> labels;
 }

@@ -26,7 +26,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-07
 **/
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",uses = {AnswerRecordMapper.class, JudgeMachineMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LanguageMapper extends BaseMapper<LanguageDto, Language> {
 
 }

@@ -16,6 +16,8 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import me.zhengjie.domain.Problem;
+
 import java.sql.Timestamp;
 import java.io.Serializable;
 
@@ -34,7 +36,7 @@ public class HintDto implements Serializable {
     private String description;
 
     /** 所属题目 */
-    private Long problemId;
+    private Problem problem;
 
     /** 创建时间 */
     private Timestamp createTime;

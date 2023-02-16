@@ -15,7 +15,12 @@
 */
 package me.zhengjie.domain;
 
-import lombok.Data;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
@@ -24,6 +29,7 @@ import javax.persistence.CascadeType;
 import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
@@ -36,7 +42,8 @@ import java.util.List;
 * @date 2023-02-14
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_problem")
 public class Problem implements Serializable {
 
@@ -70,9 +77,27 @@ public class Problem implements Serializable {
     @ApiModelProperty(value = "渲染文本")
     private String descriptionHtml;
 
-    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "`problem_id`")
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy = "problem")
     private List<Hint> hints;
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy = "problem")
+    private List<Solution> solutions;
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy = "problem")
+    private List<StandardIo> standardIos;
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy = "problem")
+    private List<AnswerRecord> answerRecords;
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "problems")
+    private List<ExaminationPaper> examinationPapers;
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "problems")
+    private List<Knowledge> knowledges;
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "problems")
+    private List<Label> labels;
     public void copy(Problem source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

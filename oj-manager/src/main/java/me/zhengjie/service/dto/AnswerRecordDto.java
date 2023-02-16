@@ -16,6 +16,9 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import me.zhengjie.domain.ExecuteResult;
+import me.zhengjie.domain.Language;
+import me.zhengjie.domain.Problem;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -32,7 +35,7 @@ public class AnswerRecordDto implements Serializable {
     private Long id;
 
     /** 所属题目 */
-    private Long problemId;
+    private Problem problem;
 
     /** 所属用户 */
     private Long userId;
@@ -44,7 +47,7 @@ public class AnswerRecordDto implements Serializable {
     private Long executeTime;
 
     /** 所属语言 */
-    private Long languageId;
+    private Language language;
 
     /** 日志 */
     private String log;
@@ -59,7 +62,7 @@ public class AnswerRecordDto implements Serializable {
     private Integer notPassNum;
 
     /** 执行结果 */
-    private Long executeResultId;
+    private ExecuteResult executeResult;
 
     /** 备注 */
     private String note;

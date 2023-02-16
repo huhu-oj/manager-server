@@ -15,6 +15,8 @@
 */
 package me.zhengjie.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +25,13 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -34,7 +40,8 @@ import java.io.Serializable;
 * @date 2023-02-14
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_knowledge")
 public class Knowledge implements Serializable {
 
@@ -68,6 +75,13 @@ public class Knowledge implements Serializable {
     @ApiModelProperty(value = "渲染文本")
     private String descriptionHtml;
 
+    @ManyToMany
+    @JoinTable(
+            name = "oj_problem_knowledge",
+            joinColumns = {@JoinColumn(name = "knowledge_id")},
+            inverseJoinColumns = {@JoinColumn(name = "problem_id")}
+    )
+    private List<Problem> problems;
     public void copy(Knowledge source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

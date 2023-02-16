@@ -97,7 +97,7 @@ public class HintServiceImpl implements HintService {
         for (HintDto hint : all) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("描述", hint.getDescription());
-            map.put("所属题目", hint.getProblemId());
+            map.put("所属题目", hint.getProblem().getTitle());
             map.put("创建时间", hint.getCreateTime());
             map.put("更新时间", hint.getUpdateTime());
             map.put("渲染文本", hint.getDescriptionHtml());

@@ -17,8 +17,12 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -35,7 +39,8 @@ import java.sql.Timestamp;
 * @date 2023-02-13
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_standard_io")
 public class StandardIo implements Serializable {
 
@@ -55,10 +60,15 @@ public class StandardIo implements Serializable {
     @ApiModelProperty(value = "输出")
     private String output;
 
-    @Column(name = "`problem_id`")
+//    @Column(name = "`problem_id`")
+//    @NotNull
+//    @ApiModelProperty(value = "所属题目")
+//    private Long problemId;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")
-    private Long problemId;
+    private Problem problem;
 
     @Column(name = "`create_time`")
     @CreationTimestamp

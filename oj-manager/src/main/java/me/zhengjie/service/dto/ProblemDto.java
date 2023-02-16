@@ -16,8 +16,13 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
+import me.zhengjie.domain.*;
+
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -44,4 +49,11 @@ public class ProblemDto implements Serializable {
 
     /** 渲染文本 */
     private String descriptionHtml;
+    private List<Hint> hints;
+    private List<Solution> solutions;
+    private List<StandardIo> standardIos;
+    private List<AnswerRecord> answerRecords;
+    private List<ExaminationPaper> examinationPapers;
+    private List<Knowledge> knowledges;
+    private List<Label> labels;
 }

@@ -99,7 +99,7 @@ public class TestServiceImpl implements TestService {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("标题", test.getTitle());
             map.put("备注", test.getDescription());
-            map.put("试卷id", test.getExaminationPaperId());
+            map.put("试卷id", test.getExaminationPaper().getName());
             map.put("开始时间", test.getStartTime());
             map.put("结束时间", test.getEndTime());
             map.put("是否启用", test.getEnabled());

@@ -97,16 +97,16 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (AnswerRecordDto answerRecord : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("所属题目", answerRecord.getProblemId());
+            map.put("所属题目", answerRecord.getProblem().getTitle());
             map.put("所属用户", answerRecord.getUserId());
             map.put("代码", answerRecord.getCode());
             map.put("执行时间", answerRecord.getExecuteTime());
-            map.put("所属语言", answerRecord.getLanguageId());
+            map.put("所属语言", answerRecord.getLanguage().getName());
             map.put("日志", answerRecord.getLog());
             map.put("错误日志", answerRecord.getError());
             map.put("通过数", answerRecord.getPassNum());
             map.put("未通过数", answerRecord.getNotPassNum());
-            map.put("执行结果", answerRecord.getExecuteResultId());
+            map.put("执行结果", answerRecord.getExecuteResult().getName());
             map.put("备注", answerRecord.getNote());
             map.put("创建时间", answerRecord.getCreateTime());
             map.put("更新时间", answerRecord.getUpdateTime());

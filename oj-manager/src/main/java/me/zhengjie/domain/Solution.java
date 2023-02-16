@@ -15,17 +15,26 @@
 */
 package me.zhengjie.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -34,7 +43,8 @@ import java.io.Serializable;
 * @date 2023-02-14
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_solution")
 public class Solution implements Serializable {
 
@@ -54,11 +64,16 @@ public class Solution implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
 
-    @Column(name = "`problem_id`")
+//    @Column(name = "`problem_id`")
+//    @NotNull
+//    @ApiModelProperty(value = "所属题目")
+//    private Long problemId;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")
-    private Long problemId;
-
+    private Problem problem;
     @Column(name = "`create_time`")
     @CreationTimestamp
     @ApiModelProperty(value = "创建时间")
@@ -72,6 +87,10 @@ public class Solution implements Serializable {
     @Column(name = "`description_html`")
     @ApiModelProperty(value = "渲染文本")
     private String descriptionHtml;
+
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "solutions")
+    private List<Label> labels;
 
     public void copy(Solution source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

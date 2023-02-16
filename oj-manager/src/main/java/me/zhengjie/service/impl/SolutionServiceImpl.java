@@ -98,7 +98,7 @@ public class SolutionServiceImpl implements SolutionService {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("标题", solution.getTitle());
             map.put("描述", solution.getDescription());
-            map.put("所属题目", solution.getProblemId());
+            map.put("所属题目", solution.getProblem().getTitle());
             map.put("创建时间", solution.getCreateTime());
             map.put("更新时间", solution.getUpdateTime());
             map.put("渲染文本", solution.getDescriptionHtml());

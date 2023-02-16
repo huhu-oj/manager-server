@@ -17,8 +17,12 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -35,7 +39,8 @@ import java.sql.Timestamp;
 * @date 2023-02-13
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_answer_record")
 public class AnswerRecord implements Serializable {
 
@@ -45,11 +50,15 @@ public class AnswerRecord implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "`problem_id`")
+//    @Column(name = "`problem_id`")
+//    @NotNull
+//    @ApiModelProperty(value = "所属题目")
+//    private Long problemId;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")
-    private Long problemId;
-
+    private Problem problem;
     @Column(name = "`user_id`")
     @NotNull
     @ApiModelProperty(value = "所属用户")
@@ -60,22 +69,27 @@ public class AnswerRecord implements Serializable {
     @ApiModelProperty(value = "代码")
     private String code;
 
-    @Column(name = "`execute_time`",nullable = false)
+    @Column(name = "`execute_time`")
     @NotNull
     @ApiModelProperty(value = "执行时间")
     private Long executeTime;
 
-    @Column(name = "`language_id`")
+//    @Column(name = "`language_id`")
+//    @NotNull
+//    @ApiModelProperty(value = "所属语言")
+//    private Long languageId;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`language_id`")
     @NotNull
     @ApiModelProperty(value = "所属语言")
-    private Long languageId;
-
-    @Column(name = "`log`",nullable = false)
+    private Language language;
+    @Column(name = "`log`")
     @NotBlank
     @ApiModelProperty(value = "日志")
     private String log;
 
-    @Column(name = "`error`",nullable = false)
+    @Column(name = "`error`")
     @NotBlank
     @ApiModelProperty(value = "错误日志")
     private String error;
@@ -90,12 +104,19 @@ public class AnswerRecord implements Serializable {
     @ApiModelProperty(value = "未通过数")
     private Integer notPassNum;
 
-    @Column(name = "`execute_result_id`")
+//    @Column(name = "`execute_result_id`")
+//    @NotNull
+//    @ApiModelProperty(value = "执行结果")
+//    private Long executeResultId;
+
+
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`execute_result_id`")
     @NotNull
     @ApiModelProperty(value = "执行结果")
-    private Long executeResultId;
+    private ExecuteResult executeResult;
 
-    @Column(name = "`note`",nullable = false)
+    @Column(name = "`note`")
     @NotBlank
     @ApiModelProperty(value = "备注")
     private String note;

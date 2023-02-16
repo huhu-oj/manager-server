@@ -15,6 +15,8 @@
 */
 package me.zhengjie.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +25,13 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -34,7 +40,8 @@ import java.io.Serializable;
 * @date 2023-02-14
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_label")
 public class Label implements Serializable {
 
@@ -63,6 +70,21 @@ public class Label implements Serializable {
     @ApiModelProperty(value = "updateTime")
     private Timestamp updateTime;
 
+    @ManyToMany
+    @JoinTable(
+            name = "oj_problem_label",
+            joinColumns = {@JoinColumn(name = "label_id")},
+            inverseJoinColumns = {@JoinColumn(name = "problem_id")}
+    )
+    private List<Problem> problems;
+
+    @ManyToMany
+    @JoinTable(
+            name = "oj_solution_label",
+            joinColumns = {@JoinColumn(name = "label_id")},
+            inverseJoinColumns = {@JoinColumn(name = "solution_id")}
+    )
+    private List<Solution> solutions;
     public void copy(Label source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

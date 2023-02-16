@@ -26,7 +26,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-14
 **/
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",uses = {ProblemMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface KnowledgeMapper extends BaseMapper<KnowledgeDto, Knowledge> {
 
 }

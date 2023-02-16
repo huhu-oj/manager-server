@@ -17,8 +17,13 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,6 +32,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -35,7 +41,8 @@ import java.sql.Timestamp;
 * @date 2023-02-07
 **/
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="oj_language")
 public class Language implements Serializable {
 
@@ -67,6 +74,13 @@ public class Language implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
 
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy="language")
+    private List<AnswerRecord> answerRecords;
+
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "languages")
+    private List<JudgeMachine> judgeMachines;
     public void copy(Language source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
