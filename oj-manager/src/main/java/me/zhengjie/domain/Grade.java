@@ -36,6 +36,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="oj_grade")
+@Deprecated
 public class Grade implements Serializable {
 
     @Id

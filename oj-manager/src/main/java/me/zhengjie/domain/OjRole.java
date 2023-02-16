@@ -36,6 +36,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name="oj_role")
+@Deprecated
 public class OjRole implements Serializable {
 
     @Id

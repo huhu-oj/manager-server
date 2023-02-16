@@ -36,6 +36,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name="oj_clazz")
+@Deprecated
 public class Clazz implements Serializable {
 
     @Id
