@@ -50,19 +50,13 @@ public class ProblemServiceImpl implements ProblemService {
     private final ProblemRepository problemRepository;
     private final ProblemMapper problemMapper;
 
-    private final ProblemHintsMapper problemHintsMapper;
 
     @Override
     public Map<String,Object> queryAll(ProblemQueryCriteria criteria, Pageable pageable){
         Page<Problem> page = problemRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(problemHintsMapper::toDto));
+        return PageUtil.toPage(page.map(problemMapper::toDto));
     }
 
-    @Override
-    public List<ProblemHintsDto> queryAll1(ProblemQueryCriteria criteria) {
-        return problemHintsMapper.toDto(problemRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-
-    }
 
     @Override
     public List<ProblemDto> queryAll(ProblemQueryCriteria criteria){
