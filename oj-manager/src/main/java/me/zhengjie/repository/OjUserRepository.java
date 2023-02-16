@@ -24,5 +24,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 * @author nwl
 * @date 2023-02-13
 **/
+@Deprecated
 public interface OjUserRepository extends JpaRepository<OjUser, Long>, JpaSpecificationExecutor<OjUser> {
 }

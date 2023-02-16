@@ -45,6 +45,7 @@ import java.util.LinkedHashMap;
 **/
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class OjUserServiceImpl implements OjUserService {
 
     private final OjUserRepository ojUserRepository;

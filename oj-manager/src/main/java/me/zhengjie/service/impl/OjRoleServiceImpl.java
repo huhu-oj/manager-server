@@ -45,6 +45,7 @@ import java.util.LinkedHashMap;
 **/
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class OjRoleServiceImpl implements OjRoleService {
 
     private final OjRoleRepository ojRoleRepository;

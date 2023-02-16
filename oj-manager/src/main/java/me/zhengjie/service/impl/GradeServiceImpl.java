@@ -46,6 +46,7 @@ import java.util.Map;
 **/
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class GradeServiceImpl implements GradeService {
 
     private final GradeRepository gradeRepository;

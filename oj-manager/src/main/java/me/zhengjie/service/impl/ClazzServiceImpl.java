@@ -45,6 +45,7 @@ import java.util.LinkedHashMap;
 **/
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class ClazzServiceImpl implements ClazzService {
 
     private final ClazzRepository clazzRepository;

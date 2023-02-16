@@ -31,6 +31,7 @@ import java.util.Map;
 * @author nwl
 * @date 2023-02-13
 **/
+@Deprecated
 public interface GradeService {
 
     /**

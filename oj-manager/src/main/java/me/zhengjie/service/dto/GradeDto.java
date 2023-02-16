@@ -27,6 +27,7 @@ import java.sql.Timestamp;
 * @date 2023-02-13
 **/
 @Data
+@Deprecated
 public class GradeDto implements Serializable {
 
     /** id */

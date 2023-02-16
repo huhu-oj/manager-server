@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author nwl
 * @date 2023-02-13
 **/
+@Deprecated
 public interface ClazzService {
 
     /**

@@ -41,6 +41,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Api(tags = "年级管理")
 @RequestMapping("/api/grade")
+@Deprecated
 public class GradeController {
 
     private final GradeService gradeService;

@@ -26,6 +26,7 @@ import java.io.Serializable;
 * @date 2023-02-13
 **/
 @Data
+@Deprecated
 public class ClazzDto implements Serializable {
 
     /** id */

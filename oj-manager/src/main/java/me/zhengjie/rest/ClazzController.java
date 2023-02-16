@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @Api(tags = "班级管理")
 @RequestMapping("/api/clazz")
+@Deprecated
 public class ClazzController {
 
     private final ClazzService clazzService;

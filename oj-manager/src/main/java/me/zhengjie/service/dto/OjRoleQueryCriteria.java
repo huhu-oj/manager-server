@@ -25,6 +25,7 @@ import me.zhengjie.annotation.Query;
 * @date 2023-02-13
 **/
 @Data
+@Deprecated
 public class OjRoleQueryCriteria{
 
     /** 模糊 */

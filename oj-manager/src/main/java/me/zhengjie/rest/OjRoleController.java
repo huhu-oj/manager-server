@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @Api(tags = "角色管理")
 @RequestMapping("/api/ojRole")
+@Deprecated
 public class OjRoleController {
 
     private final OjRoleService ojRoleService;
