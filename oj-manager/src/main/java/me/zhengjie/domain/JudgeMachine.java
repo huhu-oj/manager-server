@@ -56,12 +56,12 @@ public class JudgeMachine implements Serializable {
     @ApiModelProperty(value = "名称")
     private String name;
 
-    @Column(name = "`username`",nullable = false)
+    @Column(name = "`username`")
     @NotBlank
     @ApiModelProperty(value = "主机账号")
     private String username;
 
-    @Column(name = "`password`",nullable = false)
+    @Column(name = "`password`")
     @NotBlank
     @ApiModelProperty(value = "密码")
     private String password;
@@ -74,7 +74,7 @@ public class JudgeMachine implements Serializable {
     @Column(name = "`enabled`",nullable = false)
     @NotNull
     @ApiModelProperty(value = "是否启动")
-    private Integer enabled;
+    private Boolean enabled;
 
     @Column(name = "`create_time`")
     @CreationTimestamp

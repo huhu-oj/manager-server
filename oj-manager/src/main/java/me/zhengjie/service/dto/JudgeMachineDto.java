@@ -46,7 +46,7 @@ public class JudgeMachineDto implements Serializable {
     private String url;
 
     /** 是否启动 */
-    private Integer enabled;
+    private Boolean enabled;
 
     private Timestamp createTime;
 

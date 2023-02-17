@@ -18,9 +18,11 @@ package me.zhengjie.rest;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.JudgeMachine;
 import me.zhengjie.service.JudgeMachineService;
+import me.zhengjie.service.dto.JudgeMachineDto;
 import me.zhengjie.service.dto.JudgeMachineQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +30,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -83,5 +88,21 @@ public class JudgeMachineController {
     public ResponseEntity<Object> deleteJudgeMachine(@RequestBody Long[] ids) {
         judgeMachineService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("rand")
+    @Log("随机返回判题机接口")
+    @ApiOperation("随机返回判题机接口")
+    @PreAuthorize("@el.check('judgeMachine:list')")
+    public ResponseEntity<Object> randGetJudgeMachine(Long languageId) {
+        JudgeMachineQueryCriteria criteria = new JudgeMachineQueryCriteria();
+        criteria.setEnabled(1);
+        List<JudgeMachineDto> judgeMachineDtos = judgeMachineService.queryAll(criteria).stream()
+                .filter(judgeMachineDto -> judgeMachineDto.getLanguages().stream()
+                        .allMatch(language -> languageId == null || Objects.equals(language.getId(), languageId)))
+                .collect(Collectors.toList());
+        if (judgeMachineDtos.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(judgeMachineDtos.get((int)Math.floor(Math.random() * judgeMachineDtos.size())),HttpStatus.OK);
     }
 }
