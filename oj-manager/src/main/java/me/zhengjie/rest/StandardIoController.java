@@ -39,7 +39,7 @@ import java.io.IOException;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "标准输入输出管理")
+@Api(tags = "oj:标准输入输出管理")
 @RequestMapping("/api/standardIo")
 public class StandardIoController {
 

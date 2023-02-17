@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "知识点管理")
+@Api(tags = "oj:知识点管理")
 @RequestMapping("/api/knowledge")
 public class KnowledgeController {
 

@@ -39,7 +39,7 @@ import java.io.IOException;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "执行结果管理")
+@Api(tags = "oj:执行结果管理")
 @RequestMapping("/api/executeResult")
 public class ExecuteResultController {
 

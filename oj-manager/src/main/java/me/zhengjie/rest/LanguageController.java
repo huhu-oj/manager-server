@@ -39,7 +39,7 @@ import java.io.IOException;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "编程语言管理")
+@Api(tags = "oj:编程语言管理")
 @RequestMapping("/api/language")
 public class LanguageController {
 

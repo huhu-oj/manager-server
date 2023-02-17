@@ -39,7 +39,7 @@ import java.io.IOException;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "测验管理")
+@Api(tags = "oj:测验管理")
 @RequestMapping("/api/test")
 public class TestController {
 

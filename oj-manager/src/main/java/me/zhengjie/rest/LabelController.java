@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "标签管理")
+@Api(tags = "oj:标签管理")
 @RequestMapping("/api/label")
 public class LabelController {
 

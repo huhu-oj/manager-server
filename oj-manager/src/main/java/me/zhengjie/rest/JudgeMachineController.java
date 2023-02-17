@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "判题机管理接口管理")
+@Api(tags = "oj:判题机管理接口管理")
 @RequestMapping("/api/judgeMachine")
 public class JudgeMachineController {
 

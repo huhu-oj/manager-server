@@ -39,7 +39,7 @@ import java.io.IOException;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "年级管理")
+@Api(tags = "oj:年级管理")
 @RequestMapping("/api/grade")
 @Deprecated
 public class GradeController {

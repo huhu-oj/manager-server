@@ -39,7 +39,7 @@ import java.io.IOException;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "做题记录管理")
+@Api(tags = "oj:做题记录管理")
 @RequestMapping("/api/answerRecord")
 public class AnswerRecordController {
 

@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "题解管理")
+@Api(tags = "oj:题解管理")
 @RequestMapping("/api/solution")
 public class SolutionController {
 

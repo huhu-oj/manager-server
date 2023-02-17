@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "提示管理")
+@Api(tags = "oj:提示管理")
 @RequestMapping("/api/hint")
 public class HintController {
 

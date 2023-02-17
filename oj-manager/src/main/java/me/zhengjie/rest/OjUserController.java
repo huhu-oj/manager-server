@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 **/
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "用户管理")
+@Api(tags = "oj:用户管理")
 @RequestMapping("/api/ojUser")
 @Deprecated
 public class OjUserController {
