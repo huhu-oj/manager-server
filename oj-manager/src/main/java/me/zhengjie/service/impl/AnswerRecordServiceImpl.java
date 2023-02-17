@@ -101,7 +101,7 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
             map.put("所属用户", answerRecord.getUserId());
             map.put("代码", answerRecord.getCode());
             map.put("执行时间", answerRecord.getExecuteTime());
-            map.put("所属语言", answerRecord.getLanguage().getName());
+            map.put("所属语言", answerRecord.getLanguageName());
             map.put("日志", answerRecord.getLog());
             map.put("错误日志", answerRecord.getError());
             map.put("通过数", answerRecord.getPassNum());

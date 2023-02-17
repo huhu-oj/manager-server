@@ -47,7 +47,7 @@ public class AnswerRecordDto implements Serializable {
     private Long executeTime;
 
     /** 所属语言 */
-    private Language language;
+    private String languageName;
 
     /** 日志 */
     private String log;

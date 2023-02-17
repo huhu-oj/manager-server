@@ -35,7 +35,7 @@ public class AnswerRecordQueryCriteria{
     private Long userId;
 
     /** 精确 */
-    @Query
+    @Query(joinName = "Language", propName="id")
     private Long languageId;
 
     /** 精确 */
