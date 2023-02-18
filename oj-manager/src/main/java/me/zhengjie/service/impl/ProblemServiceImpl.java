@@ -15,27 +15,33 @@
 */
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.Problem;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.Knowledge;
+import me.zhengjie.domain.Label;
+import me.zhengjie.domain.Problem;
+import me.zhengjie.repository.KnowledgeRepository;
+import me.zhengjie.repository.LabelRepository;
 import me.zhengjie.repository.ProblemRepository;
 import me.zhengjie.service.ProblemService;
 import me.zhengjie.service.dto.ProblemDto;
 import me.zhengjie.service.dto.ProblemQueryCriteria;
 import me.zhengjie.service.mapstruct.ProblemMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
+import me.zhengjie.utils.ValidationUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
 * @website https://eladmin.vip
@@ -50,7 +56,9 @@ public class ProblemServiceImpl implements ProblemService {
     private final ProblemRepository problemRepository;
     private final ProblemMapper problemMapper;
 
+    private final LabelRepository labelRepository;
 
+    private final KnowledgeRepository knowledgeRepository;
     @Override
     public Map<String,Object> queryAll(ProblemQueryCriteria criteria, Pageable pageable){
         Page<Problem> page = problemRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -74,6 +82,12 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ProblemDto create(Problem resources) {
+
+        List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+        resources.setLabels(labels);
+
+        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
+        resources.setKnowledges(knowledges);
         return problemMapper.toDto(problemRepository.save(resources));
     }
 
@@ -82,6 +96,13 @@ public class ProblemServiceImpl implements ProblemService {
     public void update(Problem resources) {
         Problem problem = problemRepository.findById(resources.getId()).orElseGet(Problem::new);
         ValidationUtil.isNull( problem.getId(),"Problem","id",resources.getId());
+
+        List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+        resources.setLabels(labels);
+
+        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
+        resources.setKnowledges(knowledges);
+
         problem.copy(resources);
         problemRepository.save(problem);
     }

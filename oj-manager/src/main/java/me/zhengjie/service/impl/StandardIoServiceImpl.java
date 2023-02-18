@@ -16,7 +16,9 @@
 package me.zhengjie.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.Problem;
 import me.zhengjie.domain.StandardIo;
+import me.zhengjie.repository.ProblemRepository;
 import me.zhengjie.repository.StandardIoRepository;
 import me.zhengjie.service.StandardIoService;
 import me.zhengjie.service.dto.StandardIoDto;
@@ -51,6 +53,8 @@ public class StandardIoServiceImpl implements StandardIoService {
     private final StandardIoRepository standardIoRepository;
     private final StandardIoMapper standardIoMapper;
 
+    private final ProblemRepository problemRepository;
+
     @Override
     public Map<String,Object> queryAll(StandardIoQueryCriteria criteria, Pageable pageable){
         Page<StandardIo> page = standardIoRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -73,6 +77,8 @@ public class StandardIoServiceImpl implements StandardIoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public StandardIoDto create(StandardIo resources) {
+        Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
+        resources.setProblem(problem);
         return standardIoMapper.toDto(standardIoRepository.save(resources));
     }
 
@@ -82,6 +88,10 @@ public class StandardIoServiceImpl implements StandardIoService {
         StandardIo standardIo = standardIoRepository.findById(resources.getId()).orElseGet(StandardIo::new);
         ValidationUtil.isNull( standardIo.getId(),"StandardIo","id",resources.getId());
         standardIo.copy(resources);
+
+        Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
+        standardIo.setProblem(problem);
+
         standardIoRepository.save(standardIo);
     }
 

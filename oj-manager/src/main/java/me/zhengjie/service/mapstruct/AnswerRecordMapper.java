@@ -17,10 +17,8 @@ package me.zhengjie.service.mapstruct;
 
 import me.zhengjie.base.BaseMapper;
 import me.zhengjie.domain.AnswerRecord;
-import me.zhengjie.domain.Language;
 import me.zhengjie.service.dto.AnswerRecordDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 /**
@@ -31,7 +29,4 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring",uses = {ProblemMapper.class, LanguageMapper.class, ExecuteResultMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AnswerRecordMapper extends BaseMapper<AnswerRecordDto, AnswerRecord> {
 
-    @Mapping(source = "language.name", target = "languageName")
-    @Override
-    AnswerRecordDto toDto(AnswerRecord entity);
 }

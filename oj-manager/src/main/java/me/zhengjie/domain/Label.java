@@ -15,22 +15,18 @@
 */
 package me.zhengjie.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.*;
-import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -51,7 +47,7 @@ public class Label implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "`name`",nullable = false)
+    @Column(name = "`name`")
     @NotBlank
     @ApiModelProperty(value = "标签名")
     private String name;
@@ -70,15 +66,10 @@ public class Label implements Serializable {
     @ApiModelProperty(value = "updateTime")
     private Timestamp updateTime;
 
-    @ManyToMany
-    @JoinTable(
-            name = "oj_problem_label",
-            joinColumns = {@JoinColumn(name = "label_id")},
-            inverseJoinColumns = {@JoinColumn(name = "problem_id")}
-    )
+    @ManyToMany(mappedBy = "labels")
     private List<Problem> problems;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(
             name = "oj_solution_label",
             joinColumns = {@JoinColumn(name = "label_id")},

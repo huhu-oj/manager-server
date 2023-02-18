@@ -19,8 +19,8 @@ import lombok.Data;
 import me.zhengjie.domain.Problem;
 import me.zhengjie.domain.Solution;
 
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**

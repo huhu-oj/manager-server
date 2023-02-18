@@ -17,10 +17,7 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,7 +52,7 @@ public class Test implements Serializable {
     @ApiModelProperty(value = "标题")
     private String title;
 
-    @Column(name = "`description`",nullable = false)
+    @Column(name = "`description`")
     @NotBlank
     @ApiModelProperty(value = "备注")
     private String description;
@@ -83,7 +80,7 @@ public class Test implements Serializable {
     @Column(name = "`enabled`",nullable = false)
     @NotNull
     @ApiModelProperty(value = "是否启用")
-    private Integer enabled;
+    private Boolean enabled;
 
     @Column(name = "`create_time`",nullable = false)
     @NotNull

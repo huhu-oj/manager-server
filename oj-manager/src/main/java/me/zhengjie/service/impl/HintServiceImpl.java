@@ -15,27 +15,30 @@
 */
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.Hint;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.Hint;
+import me.zhengjie.domain.Problem;
 import me.zhengjie.repository.HintRepository;
+import me.zhengjie.repository.ProblemRepository;
 import me.zhengjie.service.HintService;
 import me.zhengjie.service.dto.HintDto;
 import me.zhengjie.service.dto.HintQueryCriteria;
 import me.zhengjie.service.mapstruct.HintMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
+import me.zhengjie.utils.ValidationUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * @website https://eladmin.vip
@@ -50,6 +53,7 @@ public class HintServiceImpl implements HintService {
     private final HintRepository hintRepository;
     private final HintMapper hintMapper;
 
+    private final ProblemRepository problemRepository;
     @Override
     public Map<String,Object> queryAll(HintQueryCriteria criteria, Pageable pageable){
         Page<Hint> page = hintRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -72,6 +76,8 @@ public class HintServiceImpl implements HintService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public HintDto create(Hint resources) {
+        Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
+        resources.setProblem(problem);
         return hintMapper.toDto(hintRepository.save(resources));
     }
 
@@ -81,6 +87,8 @@ public class HintServiceImpl implements HintService {
         Hint hint = hintRepository.findById(resources.getId()).orElseGet(Hint::new);
         ValidationUtil.isNull( hint.getId(),"Hint","id",resources.getId());
         hint.copy(resources);
+        Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
+        hint.setProblem(problem);
         hintRepository.save(hint);
     }
 

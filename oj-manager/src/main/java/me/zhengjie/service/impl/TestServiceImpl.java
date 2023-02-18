@@ -16,7 +16,9 @@
 package me.zhengjie.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.ExaminationPaper;
 import me.zhengjie.domain.Test;
+import me.zhengjie.repository.ExaminationPaperRepository;
 import me.zhengjie.repository.TestRepository;
 import me.zhengjie.service.TestService;
 import me.zhengjie.service.dto.TestDto;
@@ -51,6 +53,8 @@ public class TestServiceImpl implements TestService {
     private final TestRepository testRepository;
     private final TestMapper testMapper;
 
+    private final ExaminationPaperRepository examinationPaperRepository;
+
     @Override
     public Map<String,Object> queryAll(TestQueryCriteria criteria, Pageable pageable){
         Page<Test> page = testRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -73,6 +77,8 @@ public class TestServiceImpl implements TestService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public TestDto create(Test resources) {
+        ExaminationPaper paper = examinationPaperRepository.findById(resources.getExaminationPaper().getId()).orElseThrow(RuntimeException::new);
+        resources.setExaminationPaper(paper);
         return testMapper.toDto(testRepository.save(resources));
     }
 
@@ -82,6 +88,8 @@ public class TestServiceImpl implements TestService {
         Test test = testRepository.findById(resources.getId()).orElseGet(Test::new);
         ValidationUtil.isNull( test.getId(),"Test","id",resources.getId());
         test.copy(resources);
+        ExaminationPaper paper = examinationPaperRepository.findById(resources.getExaminationPaper().getId()).orElseThrow(RuntimeException::new);
+        test.setExaminationPaper(paper);
         testRepository.save(test);
     }
 

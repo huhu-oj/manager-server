@@ -34,6 +34,7 @@ import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
 * @website https://eladmin.vip
@@ -78,7 +79,7 @@ public class Problem implements Serializable {
     private String descriptionHtml;
 
     @JSONField(serialize = false)
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "problem", cascade={CascadeType.PERSIST,CascadeType.MERGE})
     private List<Hint> hints;
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "problem")
@@ -93,10 +94,20 @@ public class Problem implements Serializable {
     @ManyToMany(mappedBy = "problems")
     private List<ExaminationPaper> examinationPapers;
     @JSONField(serialize = false)
-    @ManyToMany(mappedBy = "problems")
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(
+            name = "oj_problem_knowledge",
+            joinColumns = {@JoinColumn(name = "problem_id")},
+            inverseJoinColumns = {@JoinColumn(name = "knowledge_id")}
+    )
     private List<Knowledge> knowledges;
     @JSONField(serialize = false)
-    @ManyToMany(mappedBy = "problems")
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(
+            name = "oj_problem_label",
+            joinColumns = {@JoinColumn(name = "problem_id")},
+            inverseJoinColumns = {@JoinColumn(name = "label_id")}
+    )
     private List<Label> labels;
     public void copy(Problem source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

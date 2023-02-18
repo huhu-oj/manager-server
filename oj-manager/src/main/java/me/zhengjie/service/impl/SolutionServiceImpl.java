@@ -15,27 +15,30 @@
 */
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.Solution;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.Problem;
+import me.zhengjie.domain.Solution;
+import me.zhengjie.repository.ProblemRepository;
 import me.zhengjie.repository.SolutionRepository;
 import me.zhengjie.service.SolutionService;
 import me.zhengjie.service.dto.SolutionDto;
 import me.zhengjie.service.dto.SolutionQueryCriteria;
 import me.zhengjie.service.mapstruct.SolutionMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
+import me.zhengjie.utils.ValidationUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * @website https://eladmin.vip
@@ -50,6 +53,7 @@ public class SolutionServiceImpl implements SolutionService {
     private final SolutionRepository solutionRepository;
     private final SolutionMapper solutionMapper;
 
+    private final ProblemRepository problemRepository;
     @Override
     public Map<String,Object> queryAll(SolutionQueryCriteria criteria, Pageable pageable){
         Page<Solution> page = solutionRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -72,6 +76,8 @@ public class SolutionServiceImpl implements SolutionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public SolutionDto create(Solution resources) {
+        Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
+        resources.setProblem(problem);
         return solutionMapper.toDto(solutionRepository.save(resources));
     }
 
@@ -81,6 +87,10 @@ public class SolutionServiceImpl implements SolutionService {
         Solution solution = solutionRepository.findById(resources.getId()).orElseGet(Solution::new);
         ValidationUtil.isNull( solution.getId(),"Solution","id",resources.getId());
         solution.copy(resources);
+
+        Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
+        solution.setProblem(problem);
+
         solutionRepository.save(solution);
     }
 

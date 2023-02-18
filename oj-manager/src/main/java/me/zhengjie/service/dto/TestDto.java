@@ -48,7 +48,7 @@ public class TestDto implements Serializable {
     private Timestamp endTime;
 
     /** 是否启用 */
-    private Integer enabled;
+    private Boolean enabled;
 
     /** 创建时间 */
     private Timestamp createTime;

@@ -18,10 +18,8 @@ package me.zhengjie.service.dto;
 import lombok.Data;
 import me.zhengjie.domain.*;
 
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
