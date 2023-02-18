@@ -15,20 +15,22 @@
 */
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.Knowledge;
 import me.zhengjie.service.KnowledgeService;
 import me.zhengjie.service.dto.KnowledgeQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
-import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
 * @website https://eladmin.vip
@@ -58,7 +60,13 @@ public class KnowledgeController {
     public ResponseEntity<Object> queryKnowledge(KnowledgeQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(knowledgeService.queryAll(criteria,pageable),HttpStatus.OK);
     }
-
+    @GetMapping("all")
+    @Log("查询所有知识点")
+    @ApiOperation("查询所有知识点")
+    @PreAuthorize("@el.check('knowledge:list')")
+    public ResponseEntity<Object> queryAllKnowledge(KnowledgeQueryCriteria criteria){
+        return new ResponseEntity<>(knowledgeService.queryAll(criteria),HttpStatus.OK);
+    }
     @PostMapping
     @Log("新增知识点")
     @ApiOperation("新增知识点")

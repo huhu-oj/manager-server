@@ -56,7 +56,7 @@ login:
   # Redis用户登录缓存配置
   user-cache:
     # 存活时间/秒
-    idle-time: 7200
+    idle-time: 72000
   #  验证码
   login-code:
     #  验证码类型配置 查看 LoginProperties 类
