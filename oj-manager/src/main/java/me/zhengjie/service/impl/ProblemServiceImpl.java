@@ -16,7 +16,6 @@
 package me.zhengjie.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.Hint;
 import me.zhengjie.domain.Knowledge;
 import me.zhengjie.domain.Label;
 import me.zhengjie.domain.Problem;
@@ -93,8 +92,6 @@ public class ProblemServiceImpl implements ProblemService {
         List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
         resources.setKnowledges(knowledges);
 
-        List<Hint> hints = hintRepository.findAllById(resources.getHints().stream().map(Hint::getId).collect(Collectors.toList()));
-        resources.setHints(hints);
         return problemMapper.toDto(problemRepository.save(resources));
     }
 
@@ -110,17 +107,6 @@ public class ProblemServiceImpl implements ProblemService {
         List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
         resources.setKnowledges(knowledges);
 
-//        List<Hint> hints = hintRepository.findAllById(resources.getHints().stream().map(Hint::getId).collect(Collectors.toList()));
-//        resources.setHints(hints);
-//        //保存hint修改
-//        hints.forEach(hint -> {
-//            resources.getHints().forEach(source->{
-//                if (Objects.equals(source.getId(), hint.getId())){
-//                    hint.setDescription(source.getDescription());
-//                    hint.setDescriptionHtml(source.getDescriptionHtml());
-//                }
-//            });
-//        });
         resources.getHints().forEach(hint -> {
             if (hint.getId() != null) {
                 hint = hintRepository.findById(hint.getId()).orElseThrow(RuntimeException::new);
