@@ -19,10 +19,7 @@ import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.Knowledge;
 import me.zhengjie.domain.Label;
 import me.zhengjie.domain.Problem;
-import me.zhengjie.repository.HintRepository;
-import me.zhengjie.repository.KnowledgeRepository;
-import me.zhengjie.repository.LabelRepository;
-import me.zhengjie.repository.ProblemRepository;
+import me.zhengjie.repository.*;
 import me.zhengjie.service.ProblemService;
 import me.zhengjie.service.dto.ProblemDto;
 import me.zhengjie.service.dto.ProblemQueryCriteria;
@@ -62,6 +59,10 @@ public class ProblemServiceImpl implements ProblemService {
     private final KnowledgeRepository knowledgeRepository;
 
     private final HintRepository hintRepository;
+
+    private final StandardIoRepository standardIoRepository;
+
+    private final SolutionRepository solutionRepository;
     @Override
     public Map<String,Object> queryAll(ProblemQueryCriteria criteria, Pageable pageable){
         Page<Problem> page = problemRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -113,6 +114,22 @@ public class ProblemServiceImpl implements ProblemService {
             }
             hint.setProblem(problem);
             hintRepository.save(hint);
+        });
+
+        resources.getSolutions().forEach(solution -> {
+            if (solution.getId() != null) {
+                solution = solutionRepository.findById(solution.getId()).orElseThrow(RuntimeException::new);
+            }
+            solution.setProblem(problem);
+            solutionRepository.save(solution);
+        });
+
+        resources.getStandardIos().forEach(standardIo -> {
+            if (standardIo.getId() != null) {
+                standardIo = standardIoRepository.findById(standardIo.getId()).orElseThrow(RuntimeException::new);
+            }
+            standardIo.setProblem(problem);
+            standardIoRepository.save(standardIo);
         });
 
         problem.copy(resources);

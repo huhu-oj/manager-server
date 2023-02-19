@@ -77,10 +77,10 @@ public class Problem implements Serializable {
     @JoinColumn(name = "`problem_id`")
     private List<Hint> hints;
     @JSONField(serialize = false)
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "problem",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private List<Solution> solutions;
     @JSONField(serialize = false)
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "problem",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     private List<StandardIo> standardIos;
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "problem")
