@@ -15,23 +15,20 @@
 */
 package me.zhengjie.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.validation.constraints.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.*;
-import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * @website https://eladmin.vip
@@ -60,7 +57,7 @@ public class Hint implements Serializable {
 //    @NotNull
 //    @ApiModelProperty(value = "所属题目")
 //    private Long problemId;
-
+    @JSONField(serialize = false)
     @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "`problem_id`")
     @NotNull

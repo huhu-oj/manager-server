@@ -15,26 +15,20 @@
 */
 package me.zhengjie.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.*;
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.validation.constraints.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import org.hibernate.annotations.*;
-import java.sql.Timestamp;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 
 /**
 * @website https://eladmin.vip
@@ -78,8 +72,9 @@ public class Problem implements Serializable {
     @ApiModelProperty(value = "渲染文本")
     private String descriptionHtml;
 
-    @JSONField(serialize = false)
-    @OneToMany(mappedBy = "problem", cascade={CascadeType.PERSIST,CascadeType.MERGE})
+//    @JSONField(serialize = false)
+    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "`problem_id`")
     private List<Hint> hints;
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "problem")
