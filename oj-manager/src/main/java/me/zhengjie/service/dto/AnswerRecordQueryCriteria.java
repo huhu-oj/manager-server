@@ -27,7 +27,7 @@ import me.zhengjie.annotation.Query;
 public class AnswerRecordQueryCriteria{
 
     /** 精确 */
-    @Query
+    @Query(joinName = "problem", propName="id")
     private Long problemId;
 
     /** 精确 */
@@ -35,10 +35,10 @@ public class AnswerRecordQueryCriteria{
     private Long userId;
 
     /** 精确 */
-    @Query(joinName = "Language", propName="id")
+    @Query(joinName = "language", propName="id")
     private Long languageId;
 
     /** 精确 */
-    @Query
+    @Query(joinName = "executeResult", propName="id")
     private Long executeResultId;
 }

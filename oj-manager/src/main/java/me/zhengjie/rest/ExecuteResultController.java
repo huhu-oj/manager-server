@@ -61,6 +61,13 @@ public class ExecuteResultController {
         return new ResponseEntity<>(executeResultService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
+    @GetMapping("all")
+    @Log("查询所有执行结果")
+    @ApiOperation("查询所有执行结果")
+    @PreAuthorize("@el.check('executeResult:list')")
+    public ResponseEntity<Object> queryAllExecuteResult(ExecuteResultQueryCriteria criteria){
+        return new ResponseEntity<>(executeResultService.queryAll(criteria),HttpStatus.OK);
+    }
     @PostMapping
     @Log("新增执行结果")
     @ApiOperation("新增执行结果")

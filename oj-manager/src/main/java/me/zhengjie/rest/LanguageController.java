@@ -60,7 +60,13 @@ public class LanguageController {
     public ResponseEntity<Object> queryLanguage(LanguageQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(languageService.queryAll(criteria,pageable),HttpStatus.OK);
     }
-
+    @GetMapping("all")
+    @Log("查询所有编程语言")
+    @ApiOperation("查询所有编程语言")
+    @PreAuthorize("@el.check('language:list')")
+    public ResponseEntity<Object> queryAllLanguage(LanguageQueryCriteria criteria){
+        return new ResponseEntity<>(languageService.queryAll(criteria),HttpStatus.OK);
+    }
     @PostMapping
     @Log("新增编程语言")
     @ApiOperation("新增编程语言")

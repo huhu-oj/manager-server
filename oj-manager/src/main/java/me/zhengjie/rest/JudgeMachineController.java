@@ -15,25 +15,26 @@
 */
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.JudgeMachine;
 import me.zhengjie.service.JudgeMachineService;
 import me.zhengjie.service.dto.JudgeMachineDto;
 import me.zhengjie.service.dto.JudgeMachineQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletResponse;
 
 /**
 * @website https://eladmin.vip
@@ -95,7 +96,7 @@ public class JudgeMachineController {
     @PreAuthorize("@el.check('judgeMachine:list')")
     public ResponseEntity<Object> randGetJudgeMachine(Long languageId) {
         JudgeMachineQueryCriteria criteria = new JudgeMachineQueryCriteria();
-        criteria.setEnabled(1);
+        criteria.setEnabled(true);
         List<JudgeMachineDto> judgeMachineDtos = judgeMachineService.queryAll(criteria).stream()
                 .filter(judgeMachineDto -> judgeMachineDto.getLanguages().stream()
                         .allMatch(language -> languageId == null || Objects.equals(language.getId(), languageId)))

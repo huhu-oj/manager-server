@@ -40,11 +40,4 @@ public class TestQueryCriteria{
     @Query(type = Query.Type.LESS_THAN)
     private Timestamp endTime;
 
-    /** 大于等于 */
-    @Query(type = Query.Type.GREATER_THAN)
-    private Timestamp createTime;
-
-    /** 小于等于 */
-    @Query(type = Query.Type.LESS_THAN)
-    private Timestamp updateTime;
 }

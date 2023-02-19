@@ -16,7 +16,6 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import java.util.List;
 import me.zhengjie.annotation.Query;
 
 /**
@@ -28,6 +27,6 @@ import me.zhengjie.annotation.Query;
 public class HintQueryCriteria{
 
     /** 精确 */
-    @Query
+    @Query(joinName = "problem", propName="id")
     private Long problemId;
 }

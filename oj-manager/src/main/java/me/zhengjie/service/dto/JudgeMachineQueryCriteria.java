@@ -16,7 +16,6 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import java.util.List;
 import me.zhengjie.annotation.Query;
 
 /**
@@ -37,8 +36,8 @@ public class JudgeMachineQueryCriteria{
 
     /** 精确 */
     @Query
-    private Integer enabled;
+    private Boolean enabled;
 
-    @Query(joinName = "Language", propName="id")
+    @Query(joinName = "languages", propName="id")
     private Long languageId;
 }

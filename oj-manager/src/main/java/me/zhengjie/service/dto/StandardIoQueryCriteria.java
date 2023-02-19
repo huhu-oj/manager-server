@@ -27,6 +27,6 @@ import me.zhengjie.annotation.Query;
 public class StandardIoQueryCriteria{
 
     /** 精确 */
-    @Query
+    @Query(joinName = "problem", propName="id")
     private Long problemId;
 }
