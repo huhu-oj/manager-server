@@ -62,6 +62,13 @@ public interface JudgeMachineService {
     JudgeMachineDto create(JudgeMachine resources);
 
     /**
+     * 保存或更新
+     * @param resources
+     * @return
+     */
+    JudgeMachineDto save(JudgeMachine resources);
+
+    /**
     * 编辑
     * @param resources /
     */

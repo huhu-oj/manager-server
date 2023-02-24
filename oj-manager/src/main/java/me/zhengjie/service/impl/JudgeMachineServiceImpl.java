@@ -76,6 +76,19 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
     }
 
     @Override
+    public JudgeMachineDto save(JudgeMachine resources) {
+        if (resources.getId() != null) {
+            JudgeMachine judgeMachine = judgeMachineRepository.findById(resources.getId()).orElseGet(JudgeMachine::new);
+            Boolean enabled = judgeMachine.getEnabled();
+            judgeMachine.copy(resources);
+            judgeMachine.setEnabled(enabled);
+            return judgeMachineMapper.toDto(judgeMachineRepository.save(judgeMachine));
+        } else {
+            return create(resources);
+        }
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(JudgeMachine resources) {
         JudgeMachine judgeMachine = judgeMachineRepository.findById(resources.getId()).orElseGet(JudgeMachine::new);

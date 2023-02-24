@@ -19,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
+import me.zhengjie.annotation.rest.AnonymousPostMapping;
 import me.zhengjie.domain.JudgeMachine;
 import me.zhengjie.service.JudgeMachineService;
 import me.zhengjie.service.dto.JudgeMachineDto;
@@ -30,6 +31,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -106,4 +108,12 @@ public class JudgeMachineController {
         }
         return new ResponseEntity<>(judgeMachineDtos.get((int)Math.floor(Math.random() * judgeMachineDtos.size())),HttpStatus.OK);
     }
+    @Log("判题机心跳")
+    @ApiOperation("判题机心跳")
+    @AnonymousPostMapping("health")
+    public ResponseEntity<Object> health(@RequestBody JudgeMachine judgeMachine) {
+        JudgeMachineDto dto = judgeMachineService.save(judgeMachine);
+        return new ResponseEntity<>(dto,HttpStatus.OK);
+    }
+
 }
