@@ -17,10 +17,8 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -64,7 +62,8 @@ public class StandardIo implements Serializable {
 //    @NotNull
 //    @ApiModelProperty(value = "所属题目")
 //    private Long problemId;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JSONField(serialize = false)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "`problem_id`")
     @NotNull
     @ApiModelProperty(value = "所属题目")

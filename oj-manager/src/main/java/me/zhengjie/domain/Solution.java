@@ -17,6 +17,7 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -63,6 +64,7 @@ public class Solution implements Serializable {
 //    @ApiModelProperty(value = "所属题目")
 //    private Long problemId;
 
+    @JSONField(serialize = false)
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "`problem_id`")
     @NotNull

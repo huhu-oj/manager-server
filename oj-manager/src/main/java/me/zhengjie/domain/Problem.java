@@ -76,11 +76,13 @@ public class Problem implements Serializable {
     @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "`problem_id`")
     private List<Hint> hints;
-    @JSONField(serialize = false)
-    @OneToMany(mappedBy = "problem",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+//    @JSONField(serialize = false)
+    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "`problem_id`")
     private List<Solution> solutions;
     @JSONField(serialize = false)
-    @OneToMany(mappedBy = "problem",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(name = "`problem_id`")
     private List<StandardIo> standardIos;
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "problem")

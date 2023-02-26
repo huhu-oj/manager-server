@@ -17,7 +17,6 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,7 +69,7 @@ public class Label implements Serializable {
     @ManyToMany(mappedBy = "labels")
     private List<Problem> problems;
 
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     @ManyToMany(mappedBy = "labels")
     private List<Solution> solutions;
     public void copy(Label source){

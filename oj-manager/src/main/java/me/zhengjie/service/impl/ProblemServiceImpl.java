@@ -16,9 +16,7 @@
 package me.zhengjie.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.Knowledge;
-import me.zhengjie.domain.Label;
-import me.zhengjie.domain.Problem;
+import me.zhengjie.domain.*;
 import me.zhengjie.repository.*;
 import me.zhengjie.service.ProblemService;
 import me.zhengjie.service.dto.ProblemDto;
@@ -35,10 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -98,6 +93,7 @@ public class ProblemServiceImpl implements ProblemService {
             solution.setLabels(solutionLabels);
         });
 
+
         return problemMapper.toDto(problemRepository.save(resources));
     }
 
@@ -105,7 +101,7 @@ public class ProblemServiceImpl implements ProblemService {
     @Transactional(rollbackFor = Exception.class)
     public void update(Problem resources) {
         Problem problem = problemRepository.findById(resources.getId()).orElseGet(Problem::new);
-        ValidationUtil.isNull( problem.getId(),"Problem","id",resources.getId());
+        ValidationUtil.isNull(problem.getId(),"Problem","id",resources.getId());
 
         List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
         resources.setLabels(labels);
@@ -114,31 +110,26 @@ public class ProblemServiceImpl implements ProblemService {
         resources.setKnowledges(knowledges);
 
         //处理新增和删除的提示
-        resources.getHints().forEach(hint -> {
-            if (hint.getId() != null) {
-                hint = hintRepository.findById(hint.getId()).orElseThrow(RuntimeException::new);
-            }
-            hint.setProblem(problem);
-            hintRepository.save(hint);
-        });
+        resources.setHints(resources.getHints().stream().map(hint -> {
+            Hint persistHint = hintRepository.findById(Optional.ofNullable(hint.getId()).orElse(-1L)).orElseGet(Hint::new);
+            persistHint.copy(hint);
+            return persistHint;
+        }).collect(Collectors.toList()));
 
-        resources.getSolutions().forEach(solution -> {
-            if (solution.getId() != null) {
-                solution = solutionRepository.findById(solution.getId()).orElseThrow(RuntimeException::new);
-            }
-            List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
-            solution.setLabels(solutionLabels);
-            solution.setProblem(problem);
-            solutionRepository.save(solution);
-        });
+        resources.setSolutions(resources.getSolutions().stream().map(solution -> {
+            Solution persistSolution = solutionRepository.findById(Optional.ofNullable(solution.getId()).orElse(-1L)).orElseThrow(RuntimeException::new);
+//            List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+//            solution.setLabels(solutionLabels);
+            solution.setLabels(labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList())));
+            persistSolution.copy(solution);
+            return persistSolution;
+        }).collect(Collectors.toList()));
 
-        resources.getStandardIos().forEach(standardIo -> {
-            if (standardIo.getId() != null) {
-                standardIo = standardIoRepository.findById(standardIo.getId()).orElseThrow(RuntimeException::new);
-            }
-            standardIo.setProblem(problem);
-            standardIoRepository.save(standardIo);
-        });
+        resources.setStandardIos(resources.getStandardIos().stream().map(standardIo -> {
+            StandardIo persistStandardIo = standardIoRepository.findById(Optional.ofNullable(standardIo.getId()).orElse(-1L)).orElseGet(StandardIo::new);
+            persistStandardIo.copy(standardIo);
+            return persistStandardIo;
+        }).collect(Collectors.toList()));
 
         problem.copy(resources);
         problemRepository.save(problem);
