@@ -16,18 +16,17 @@
 package me.zhengjie.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.Label;
 import me.zhengjie.domain.Problem;
 import me.zhengjie.domain.Solution;
+import me.zhengjie.repository.LabelRepository;
 import me.zhengjie.repository.ProblemRepository;
 import me.zhengjie.repository.SolutionRepository;
 import me.zhengjie.service.SolutionService;
 import me.zhengjie.service.dto.SolutionDto;
 import me.zhengjie.service.dto.SolutionQueryCriteria;
 import me.zhengjie.service.mapstruct.SolutionMapper;
-import me.zhengjie.utils.FileUtil;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.QueryHelp;
-import me.zhengjie.utils.ValidationUtil;
+import me.zhengjie.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,6 +38,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
 * @website https://eladmin.vip
@@ -54,6 +54,7 @@ public class SolutionServiceImpl implements SolutionService {
     private final SolutionMapper solutionMapper;
 
     private final ProblemRepository problemRepository;
+    private final LabelRepository labelRepository;
     @Override
     public Map<String,Object> queryAll(SolutionQueryCriteria criteria, Pageable pageable){
         Page<Solution> page = solutionRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -78,6 +79,10 @@ public class SolutionServiceImpl implements SolutionService {
     public SolutionDto create(Solution resources) {
         Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
         resources.setProblem(problem);
+
+        List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+        resources.setLabels(labels);
+        resources.setUserId(SecurityUtils.getCurrentUserId());
         return solutionMapper.toDto(solutionRepository.save(resources));
     }
 
@@ -86,11 +91,16 @@ public class SolutionServiceImpl implements SolutionService {
     public void update(Solution resources) {
         Solution solution = solutionRepository.findById(resources.getId()).orElseGet(Solution::new);
         ValidationUtil.isNull( solution.getId(),"Solution","id",resources.getId());
-        solution.copy(resources);
 
         Problem problem = problemRepository.findById(resources.getProblem().getId()).orElseThrow(RuntimeException::new);
-        solution.setProblem(problem);
+        resources.setProblem(problem);
 
+        List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+        resources.setLabels(labels);
+
+        resources.setUserId(SecurityUtils.getCurrentUserId());
+
+        solution.copy(resources);
         solutionRepository.save(solution);
     }
 

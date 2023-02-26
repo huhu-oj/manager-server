@@ -16,17 +16,17 @@
 package me.zhengjie.service.mapstruct;
 
 import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.Label;
-import me.zhengjie.service.dto.LabelDto;
+import me.zhengjie.domain.AnswerRecord;
+import me.zhengjie.service.dto.AnswerRecordSmallDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
-* @date 2023-02-14
+* @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {SolutionSmallMapper.class, ProblemSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface LabelMapper extends BaseMapper<LabelDto, Label> {
+@Mapper(componentModel = "spring",uses = {LanguageSmallMapper.class, ExecuteResultSmallMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface AnswerRecordSmallMapper extends BaseMapper<AnswerRecordSmallDto, AnswerRecord> {
 
 }

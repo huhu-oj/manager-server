@@ -16,8 +16,8 @@
 package me.zhengjie.service.mapstruct;
 
 import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.Label;
-import me.zhengjie.service.dto.LabelDto;
+import me.zhengjie.domain.Solution;
+import me.zhengjie.service.dto.SolutionSmallDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -26,7 +26,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-14
 **/
-@Mapper(componentModel = "spring",uses = {SolutionSmallMapper.class, ProblemSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface LabelMapper extends BaseMapper<LabelDto, Label> {
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface SolutionSmallMapper extends BaseMapper<SolutionSmallDto, Solution> {
 
 }

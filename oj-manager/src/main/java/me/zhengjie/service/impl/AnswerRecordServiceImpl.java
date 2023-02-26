@@ -22,10 +22,7 @@ import me.zhengjie.service.AnswerRecordService;
 import me.zhengjie.service.dto.AnswerRecordDto;
 import me.zhengjie.service.dto.AnswerRecordQueryCriteria;
 import me.zhengjie.service.mapstruct.AnswerRecordMapper;
-import me.zhengjie.utils.FileUtil;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.QueryHelp;
-import me.zhengjie.utils.ValidationUtil;
+import me.zhengjie.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -73,6 +70,7 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AnswerRecordDto create(AnswerRecord resources) {
+        resources.setUserId(SecurityUtils.getCurrentUserId());
         return answerRecordMapper.toDto(answerRecordRepository.save(resources));
     }
 

@@ -16,10 +16,9 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.Language;
 
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -54,5 +53,5 @@ public class JudgeMachineDto implements Serializable {
 
     /** 支持的语言 */
     private String supportLanguage;
-    private List<Language> languages;
+    private List<LanguageSmallDto> languages;
 }

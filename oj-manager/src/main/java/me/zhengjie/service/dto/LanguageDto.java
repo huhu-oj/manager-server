@@ -16,10 +16,7 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.AnswerRecord;
-import me.zhengjie.domain.JudgeMachine;
 
-import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -46,7 +43,7 @@ public class LanguageDto implements Serializable {
 
     /** 更新时间 */
     private Timestamp updateTime;
-    private List<AnswerRecord> answerRecords;
+    private List<AnswerRecordSmallDto> answerRecords;
 
-    private List<JudgeMachine> judgeMachines;
+//    private List<JudgeMachineDto> judgeMachines;
 }

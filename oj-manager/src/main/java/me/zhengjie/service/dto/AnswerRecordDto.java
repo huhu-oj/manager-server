@@ -16,8 +16,6 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.ExecuteResult;
-import me.zhengjie.domain.Language;
 import me.zhengjie.domain.Problem;
 
 import java.io.Serializable;
@@ -47,7 +45,7 @@ public class AnswerRecordDto implements Serializable {
     private Long executeTime;
 
     /** 所属语言 */
-    private Language language;
+    private LanguageSmallDto language;
 
     /** 日志 */
     private String log;
@@ -62,7 +60,7 @@ public class AnswerRecordDto implements Serializable {
     private Integer notPassNum;
 
     /** 执行结果 */
-    private ExecuteResult executeResult;
+    private ExecuteResultSmallDto executeResult;
 
     /** 备注 */
     private String note;

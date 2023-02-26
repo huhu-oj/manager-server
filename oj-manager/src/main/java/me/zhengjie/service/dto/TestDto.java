@@ -16,7 +16,6 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.ExaminationPaper;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -39,7 +38,7 @@ public class TestDto implements Serializable {
     private String description;
 
     /** 试卷id */
-    private ExaminationPaper examinationPaper;
+    private ExaminationPaperSmallDto examinationPaper;
 
     /** 开始时间 */
     private Timestamp startTime;

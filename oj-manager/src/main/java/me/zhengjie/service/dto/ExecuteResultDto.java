@@ -16,10 +16,8 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.AnswerRecord;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -37,6 +35,5 @@ public class ExecuteResultDto implements Serializable {
 
     /** 颜色 */
     private String color;
-    private List<AnswerRecord> answerRecords;
 
 }

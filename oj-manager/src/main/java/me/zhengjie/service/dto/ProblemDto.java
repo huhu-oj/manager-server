@@ -16,7 +16,6 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -47,11 +46,10 @@ public class ProblemDto implements Serializable {
 
     /** 渲染文本 */
     private String descriptionHtml;
-    private List<Hint> hints;
-    private List<Solution> solutions;
-    private List<StandardIo> standardIos;
-    private List<AnswerRecord> answerRecords;
-    private List<ExaminationPaper> examinationPapers;
-    private List<Knowledge> knowledges;
-    private List<Label> labels;
+    private List<HintSmallDto> hints;
+    private List<SolutionSmallDto> solutions;
+    private List<StandardIoSmallDto> standardIos;
+    private List<AnswerRecordSmallDto> answerRecords;
+    private List<KnowledgeSmallDto> knowledges;
+    private List<LabelSmallDto> labels;
 }

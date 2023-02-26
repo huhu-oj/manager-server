@@ -26,7 +26,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-14
 **/
-@Mapper(componentModel = "spring",uses={ProblemMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",uses={ProblemSmallMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface HintMapper extends BaseMapper<HintDto, Hint> {
 
 }

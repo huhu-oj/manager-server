@@ -16,11 +16,9 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import me.zhengjie.domain.Problem;
 
-import java.sql.Timestamp;
 import java.io.Serializable;
-import java.util.List;
+import java.sql.Timestamp;
 
 /**
 * @website https://eladmin.vip
@@ -48,5 +46,4 @@ public class KnowledgeDto implements Serializable {
     /** 渲染文本 */
     private String descriptionHtml;
 
-    private List<Problem> problems;
 }

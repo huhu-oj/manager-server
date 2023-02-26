@@ -26,7 +26,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {ExaminationPaperMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",uses = {ExaminationPaperSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TestMapper extends BaseMapper<TestDto, Test> {
 
 }

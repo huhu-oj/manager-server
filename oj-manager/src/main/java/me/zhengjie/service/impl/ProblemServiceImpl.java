@@ -93,6 +93,11 @@ public class ProblemServiceImpl implements ProblemService {
         List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
         resources.setKnowledges(knowledges);
 
+        resources.getSolutions().forEach(solution -> {
+            List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+            solution.setLabels(solutionLabels);
+        });
+
         return problemMapper.toDto(problemRepository.save(resources));
     }
 
@@ -108,6 +113,7 @@ public class ProblemServiceImpl implements ProblemService {
         List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
         resources.setKnowledges(knowledges);
 
+        //处理新增和删除的提示
         resources.getHints().forEach(hint -> {
             if (hint.getId() != null) {
                 hint = hintRepository.findById(hint.getId()).orElseThrow(RuntimeException::new);
@@ -120,6 +126,8 @@ public class ProblemServiceImpl implements ProblemService {
             if (solution.getId() != null) {
                 solution = solutionRepository.findById(solution.getId()).orElseThrow(RuntimeException::new);
             }
+            List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
+            solution.setLabels(solutionLabels);
             solution.setProblem(problem);
             solutionRepository.save(solution);
         });
