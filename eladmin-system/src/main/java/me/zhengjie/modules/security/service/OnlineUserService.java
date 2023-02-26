@@ -64,7 +64,19 @@ public class OnlineUserService {
         }
         redisUtils.set(properties.getOnlineKey() + token, onlineUserDto, properties.getTokenValidityInSeconds()/1000);
     }
-
+    public void saveLocal(JwtUserDto jwtUserDto, String token, HttpServletRequest request){
+        String dept = jwtUserDto.getUser().getDept().getName();
+        String ip = StringUtils.getIp(request);
+        String browser = StringUtils.getBrowser(request);
+        String address = StringUtils.getCityInfo(ip);
+        OnlineUserDto onlineUserDto = null;
+        try {
+            onlineUserDto = new OnlineUserDto(jwtUserDto.getUsername(), jwtUserDto.getUser().getNickName(), dept, browser , ip, address, EncryptUtils.desEncrypt(token), new Date());
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
+        redisUtils.set(properties.getOnlineKey() + token, onlineUserDto);
+    }
     /**
      * 查询全部数据
      * @param filter /

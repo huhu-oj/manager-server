@@ -105,6 +105,9 @@ public class TokenProvider implements InitializingBean {
     public void checkRenewal(String token) {
         // 判断是否续期token,计算token的过期时间
         long time = redisUtils.getExpire(properties.getOnlineKey() + token) * 1000;
+        if (time < 0) {
+            return;
+        }
         Date expireDate = DateUtil.offset(new Date(), DateField.MILLISECOND, (int) time);
         // 判断当前时间与过期时间的时间差
         long differ = expireDate.getTime() - System.currentTimeMillis();
