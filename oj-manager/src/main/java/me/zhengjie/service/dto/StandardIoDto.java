@@ -41,6 +41,8 @@ public class StandardIoDto implements Serializable {
     /** 所属题目 */
     private Problem problem;
 
+    private Long userId;
+
     private Timestamp createTime;
 
     private Timestamp updateTime;

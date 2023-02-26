@@ -16,7 +16,6 @@
 package me.zhengjie.service.dto;
 
 import lombok.Data;
-import java.util.List;
 import me.zhengjie.annotation.Query;
 
 /**
@@ -26,6 +25,9 @@ import me.zhengjie.annotation.Query;
 **/
 @Data
 public class KnowledgeQueryCriteria{
+
+    @Query
+    private Long id;
 
     /** 模糊 */
     @Query(type = Query.Type.INNER_LIKE)

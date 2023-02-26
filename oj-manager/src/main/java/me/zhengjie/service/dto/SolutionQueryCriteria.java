@@ -33,4 +33,6 @@ public class SolutionQueryCriteria{
     /** 精确 */
     @Query(joinName = "problem", propName="id")
     private Long problemId;
+    @Query
+    private Long id;
 }
