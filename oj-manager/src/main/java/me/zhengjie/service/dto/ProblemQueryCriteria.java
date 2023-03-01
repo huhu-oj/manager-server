@@ -30,4 +30,7 @@ public class ProblemQueryCriteria{
     /** 模糊 */
     @Query(type = Query.Type.INNER_LIKE)
     private String title;
+
+    @Query
+    private Long id;
 }

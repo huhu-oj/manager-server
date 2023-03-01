@@ -54,4 +54,6 @@ public class TestDto implements Serializable {
 
     /** 更新时间 */
     private Timestamp updateTime;
+
+    private Long userId;
 }

@@ -43,7 +43,7 @@ public class LanguageDto implements Serializable {
 
     /** 更新时间 */
     private Timestamp updateTime;
-    private List<AnswerRecordSmallDto> answerRecords;
+//    private List<AnswerRecordSmallDto> answerRecords;
 
 //    private List<JudgeMachineDto> judgeMachines;
 }

@@ -117,9 +117,7 @@ public class ProblemServiceImpl implements ProblemService {
         }).collect(Collectors.toList()));
 
         resources.setSolutions(resources.getSolutions().stream().map(solution -> {
-            Solution persistSolution = solutionRepository.findById(Optional.ofNullable(solution.getId()).orElse(-1L)).orElseThrow(RuntimeException::new);
-//            List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
-//            solution.setLabels(solutionLabels);
+            Solution persistSolution = solutionRepository.findById(Optional.ofNullable(solution.getId()).orElse(-1L)).orElseGet(Solution::new);
             solution.setLabels(labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList())));
             persistSolution.copy(solution);
             return persistSolution;
