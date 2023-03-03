@@ -17,6 +17,7 @@ package me.zhengjie.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.internal.dynalink.linker.LinkerServices;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.domain.Test;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -53,6 +55,13 @@ public class TestController {
         testService.download(testService.queryAll(criteria), response);
     }
 
+    @GetMapping("ids")
+    @Log("查询测验列表")
+    @ApiOperation("查询测验列表")
+    @PreAuthorize("@el.check('test:list')")
+    public ResponseEntity<Object> queryTest(@RequestBody List<Long> testIds){
+        return new ResponseEntity<>(testService.batchQueryById(testIds),HttpStatus.OK);
+    }
     @GetMapping
     @Log("查询测验")
     @ApiOperation("查询测验")

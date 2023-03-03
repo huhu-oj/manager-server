@@ -117,4 +117,9 @@ public class TestServiceImpl implements TestService {
         }
         FileUtil.downloadExcel(list, response);
     }
+
+    @Override
+    public List<TestDto> batchQueryById(List<Long> ids) {
+        return testMapper.toDto(testRepository.findAllById(ids));
+    }
 }
