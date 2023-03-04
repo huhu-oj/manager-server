@@ -19,10 +19,11 @@ import me.zhengjie.domain.JudgeMachine;
 import me.zhengjie.service.dto.JudgeMachineDto;
 import me.zhengjie.service.dto.JudgeMachineQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
-import java.util.List;
-import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
 * @website https://eladmin.vip
@@ -87,4 +88,8 @@ public interface JudgeMachineService {
     * @throws IOException /
     */
     void download(List<JudgeMachineDto> all, HttpServletResponse response) throws IOException;
+
+    JudgeMachineDto getByUrl(JudgeMachine judgeMachine);
+
+    List<JudgeMachineDto> getHosts(Boolean isEnabled);
 }

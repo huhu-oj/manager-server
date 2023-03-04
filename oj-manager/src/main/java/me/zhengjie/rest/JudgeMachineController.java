@@ -31,7 +31,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -112,8 +111,19 @@ public class JudgeMachineController {
     @ApiOperation("判题机心跳")
     @AnonymousPostMapping("health")
     public ResponseEntity<Object> health(@RequestBody JudgeMachine judgeMachine) {
-        JudgeMachineDto dto = judgeMachineService.save(judgeMachine);
+        JudgeMachineDto dto = null;
+        try {
+            dto = judgeMachineService.getByUrl(judgeMachine);
+        } catch (Exception e) {
+            dto = judgeMachineService.save(judgeMachine);
+        }
         return new ResponseEntity<>(dto,HttpStatus.OK);
+    }
+    @Log("获取在线并且启用的判题机列表")
+    @ApiOperation("获取在线并且启用的判题机列表")
+    @GetMapping("online")
+    public ResponseEntity<Object> getOnlineHost(@RequestParam(value = "onlyEnabled",required = false,defaultValue = "false") Boolean isEnabled) {
+        return new ResponseEntity<>(judgeMachineService.getHosts(isEnabled),HttpStatus.OK);
     }
 
 }

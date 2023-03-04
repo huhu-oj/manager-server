@@ -37,7 +37,9 @@ public class JudgeMachineQueryCriteria{
     /** 精确 */
     @Query
     private Boolean enabled;
-
+    /** 精确 */
+    @Query
+    private String url;
     @Query(joinName = "languages", propName="id")
     private Long languageId;
 }

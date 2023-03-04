@@ -15,27 +15,30 @@
 */
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.JudgeMachine;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
+import cn.hutool.cron.CronUtil;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.JudgeMachine;
 import me.zhengjie.repository.JudgeMachineRepository;
 import me.zhengjie.service.JudgeMachineService;
 import me.zhengjie.service.dto.JudgeMachineDto;
 import me.zhengjie.service.dto.JudgeMachineQueryCriteria;
 import me.zhengjie.service.mapstruct.JudgeMachineMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
+import me.zhengjie.utils.ValidationUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
 * @website https://eladmin.vip
@@ -49,7 +52,41 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
 
     private final JudgeMachineRepository judgeMachineRepository;
     private final JudgeMachineMapper judgeMachineMapper;
+    private final HashMap<Long,JudgeMachineDto> onlineJudgeMachineMap = new HashMap<>();
 
+    @PostConstruct
+    private void init() {
+        JudgeMachineQueryCriteria criteria = new JudgeMachineQueryCriteria();
+        criteria.setEnabled(true);
+        List<JudgeMachineDto> judgeMachineDtos = queryAll(criteria);
+        judgeMachineDtos.forEach(dto->{
+            onlineJudgeMachineMap.put(dto.getId(),dto);
+        });
+        CronUtil.schedule("*/12 * * * * *", (Runnable) this::checkOnlineHost);
+
+        // 支持秒级别定时任务
+        CronUtil.setMatchSecond(true);
+        CronUtil.start();
+    }
+    @Transactional
+    void checkOnlineHost() {
+        //遍历map
+        onlineJudgeMachineMap.forEach((id,host)->{
+
+            if (host == null) {
+                return;
+            }
+            if (!host.getEnabled()) {
+                //更新数据库
+                JudgeMachine judgeMachine = judgeMachineMapper.toEntity(host);
+                judgeMachine.setEnabled(false);
+                update(judgeMachine);
+                onlineJudgeMachineMap.put(id,null);
+                return;
+            }
+            host.setEnabled(false);
+        });
+    }
     @Override
     public Map<String,Object> queryAll(JudgeMachineQueryCriteria criteria, Pageable pageable){
         Page<JudgeMachine> page = judgeMachineRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -76,15 +113,29 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public JudgeMachineDto save(JudgeMachine resources) {
-        if (resources.getId() != null) {
+        if (resources.getId() != null && resources.getId() != 0) {
             JudgeMachine judgeMachine = judgeMachineRepository.findById(resources.getId()).orElseGet(JudgeMachine::new);
-            Boolean enabled = judgeMachine.getEnabled();
             judgeMachine.copy(resources);
-            judgeMachine.setEnabled(enabled);
-            return judgeMachineMapper.toDto(judgeMachineRepository.save(judgeMachine));
+            JudgeMachineDto judgeMachineDto = judgeMachineMapper.toDto(judgeMachineRepository.save(judgeMachine));
+
+            onlineJudgeMachineMap.put(judgeMachineDto.getId(),judgeMachineDto);
+            if (!HttpRequest.post(judgeMachineDto.getUrl()+"/api/v1/config")
+                    .body(JSONUtil.toJsonStr(judgeMachineDto))
+                    .execute().isOk()) {
+                throw new RuntimeException("修改判题机配置失败");
+            }
+            return judgeMachineDto;
         } else {
-            return create(resources);
+            JudgeMachineDto judgeMachineDto = create(resources);
+            onlineJudgeMachineMap.put(judgeMachineDto.getId(),judgeMachineDto);
+            if (!HttpRequest.post(judgeMachineDto.getUrl()+"/api/v1/config")
+                    .body(JSONUtil.toJsonStr(judgeMachineDto))
+                    .execute().isOk()) {
+                throw new RuntimeException("修改判题机配置失败");
+            }
+            return judgeMachineDto;
         }
     }
 
@@ -120,5 +171,29 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    public JudgeMachineDto getByUrl(JudgeMachine request) {
+//        System.out.println(onlineJudgeMachineMap);
+        JudgeMachineQueryCriteria criteria = new JudgeMachineQueryCriteria();
+        criteria.setUrl(request.getUrl());
+        JudgeMachineDto judgeMachineDto = judgeMachineMapper.toDto(judgeMachineRepository.findOne((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)).orElseThrow(RuntimeException::new));
+        //维护在线列表
+        judgeMachineDto.setEnabled(request.getEnabled());
+        onlineJudgeMachineMap.put(judgeMachineDto.getId(),judgeMachineDto);
+        return judgeMachineDto;
+    }
+
+    @Override
+    public List<JudgeMachineDto> getHosts(Boolean onlyEnabled) {
+        if (!onlyEnabled) {
+            return onlineJudgeMachineMap.values().stream()
+                    .filter(Objects::nonNull).collect(Collectors.toList());
+        }
+
+       return onlineJudgeMachineMap.values().stream()
+               .filter(judgeMachineDto -> judgeMachineDto != null && judgeMachineDto.getEnabled())
+               .collect(Collectors.toList());
     }
 }

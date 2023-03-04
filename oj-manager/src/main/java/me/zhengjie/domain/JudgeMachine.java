@@ -87,7 +87,7 @@ public class JudgeMachine implements Serializable {
     @ApiModelProperty(value = "支持的语言")
     private String supportLanguage;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "oj_judge_machine_language",
             joinColumns = {@JoinColumn(name = "judge_machine_id")},
