@@ -85,8 +85,8 @@ public class ProblemServiceImpl implements ProblemService {
         List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
         resources.setLabels(labels);
 
-        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
-        resources.setKnowledges(knowledges);
+//        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
+//        resources.setKnowledges(knowledges);
 
         resources.getSolutions().forEach(solution -> {
             List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
@@ -106,8 +106,8 @@ public class ProblemServiceImpl implements ProblemService {
         List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
         resources.setLabels(labels);
 
-        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
-        resources.setKnowledges(knowledges);
+//        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
+//        resources.setKnowledges(knowledges);
 
         //处理新增和删除的提示
         resources.setHints(resources.getHints().stream().map(hint -> {

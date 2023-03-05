@@ -70,9 +70,11 @@ public class Knowledge implements Serializable {
     @Column(name = "`description_html`")
     @ApiModelProperty(value = "渲染文本")
     private String descriptionHtml;
-
-    @ManyToMany(mappedBy = "knowledges")
-    private List<Problem> problems;
+//
+//    @ManyToMany(mappedBy = "knowledges")
+//    private List<Problem> problems;
+    @OneToMany(mappedBy = "knowledge")
+    private List<ProblemKnowledge> problemKnowledges;
     public void copy(Knowledge source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
