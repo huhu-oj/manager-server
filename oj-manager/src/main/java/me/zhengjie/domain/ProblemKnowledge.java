@@ -1,6 +1,7 @@
 package me.zhengjie.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,10 @@ import java.io.Serializable;
 @Table(name = "oj_problem_knowledge")
 public class ProblemKnowledge implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @ApiModelProperty(value = "id")
+    private Long id;
 //    @ManyToOne
 //    @JoinColumn(name = "problem_id")
 //    @JSONField(serialize = false)
