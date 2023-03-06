@@ -13,20 +13,16 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.mapstruct;
+package me.zhengjie.repository;
 
-import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.ExaminationPaper;
-import me.zhengjie.service.dto.ExaminationPaperDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import me.zhengjie.domain.ExaminationPaperProblem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
 * @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {ExaminationPaperProblemMapper.class, ProblemSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ExaminationPaperMapper extends BaseMapper<ExaminationPaperDto, ExaminationPaper> {
-
+public interface ExaminationPaperProblemRepository extends JpaRepository<ExaminationPaperProblem, Long>, JpaSpecificationExecutor<ExaminationPaperProblem> {
 }

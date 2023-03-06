@@ -87,9 +87,9 @@ public class Problem implements Serializable {
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "problem")
     private List<AnswerRecord> answerRecords;
-    @JSONField(serialize = false)
-    @ManyToMany(mappedBy = "problems")
-    private List<ExaminationPaper> examinationPapers;
+//    @JSONField(serialize = false)
+//    @ManyToMany(mappedBy = "problems")
+//    private List<ExaminationPaper> examinationPapers;
 //    @JSONField(serialize = false)
 //    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 //    @JoinTable(
@@ -109,6 +109,8 @@ public class Problem implements Serializable {
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "problem_id")
     private List<ProblemKnowledge> problemKnowledges;
+    @OneToMany(mappedBy = "problem")
+    private List<ExaminationPaperProblem> examinationPaperProblems;
     public void copy(Problem source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

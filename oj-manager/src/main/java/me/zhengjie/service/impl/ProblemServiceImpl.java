@@ -114,8 +114,10 @@ public class ProblemServiceImpl implements ProblemService {
 
         //手动删除关联表
         ProblemKnowledgeQueryCriteria criteria = new ProblemKnowledgeQueryCriteria();
+        criteria.setProblemId(resources.getId());
         List<ProblemKnowledge> todelete = problemKnowledgeRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder));
         problemKnowledgeRepository.deleteAll(todelete);
+
         //处理新增和删除的提示
         resources.setHints(resources.getHints().stream().map(hint -> {
             Hint persistHint = hintRepository.findById(Optional.ofNullable(hint.getId()).orElse(-1L)).orElseGet(Hint::new);

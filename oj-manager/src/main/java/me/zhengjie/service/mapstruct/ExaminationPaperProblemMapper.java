@@ -16,17 +16,17 @@
 package me.zhengjie.service.mapstruct;
 
 import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.Problem;
-import me.zhengjie.service.dto.ProblemDto;
+import me.zhengjie.domain.ExaminationPaperProblem;
+import me.zhengjie.service.dto.ExaminationPaperProblemDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
-* @date 2023-02-14
+* @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {ProblemKnowledgeMapper.class, ExaminationPaperProblemMapper.class, HintSmallMapper.class, AnswerRecordSmallMapper.class,SolutionSmallMapper.class, ExaminationPaperMapper.class, LanguageSmallMapper.class, KnowledgeSmallMapper.class, StandardIoSmallMapper.class, LabelSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ProblemMapper extends BaseMapper<ProblemDto, Problem> {
+@Mapper(componentModel = "spring",uses = {ProblemSmallMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface ExaminationPaperProblemMapper extends BaseMapper<ExaminationPaperProblemDto, ExaminationPaperProblem> {
 
 }

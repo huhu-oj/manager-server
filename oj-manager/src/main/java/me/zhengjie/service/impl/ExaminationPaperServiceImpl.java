@@ -15,27 +15,31 @@
 */
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.ExaminationPaper;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.domain.ExaminationPaper;
+import me.zhengjie.domain.ExaminationPaperProblem;
+import me.zhengjie.repository.ExaminationPaperProblemRepository;
 import me.zhengjie.repository.ExaminationPaperRepository;
 import me.zhengjie.service.ExaminationPaperService;
 import me.zhengjie.service.dto.ExaminationPaperDto;
+import me.zhengjie.service.dto.ExaminationPaperProblemQueryCriteria;
 import me.zhengjie.service.dto.ExaminationPaperQueryCriteria;
 import me.zhengjie.service.mapstruct.ExaminationPaperMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
+import me.zhengjie.utils.ValidationUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * @website https://eladmin.vip
@@ -49,6 +53,8 @@ public class ExaminationPaperServiceImpl implements ExaminationPaperService {
 
     private final ExaminationPaperRepository examinationPaperRepository;
     private final ExaminationPaperMapper examinationPaperMapper;
+
+    private final ExaminationPaperProblemRepository examinationPaperProblemRepository;
 
     @Override
     public Map<String,Object> queryAll(ExaminationPaperQueryCriteria criteria, Pageable pageable){
@@ -80,6 +86,12 @@ public class ExaminationPaperServiceImpl implements ExaminationPaperService {
     public void update(ExaminationPaper resources) {
         ExaminationPaper examinationPaper = examinationPaperRepository.findById(resources.getId()).orElseGet(ExaminationPaper::new);
         ValidationUtil.isNull( examinationPaper.getId(),"ExaminationPaper","id",resources.getId());
+         //手动删除关联表
+        ExaminationPaperProblemQueryCriteria criteria = new ExaminationPaperProblemQueryCriteria();
+        criteria.setExaminationPaperId(resources.getId());
+        List<ExaminationPaperProblem> todelete = examinationPaperProblemRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder));
+        examinationPaperProblemRepository.deleteAll(todelete);
+
         examinationPaper.copy(resources);
         examinationPaperRepository.save(examinationPaper);
     }
