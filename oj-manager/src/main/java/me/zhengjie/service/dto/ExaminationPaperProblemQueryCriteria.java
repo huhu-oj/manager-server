@@ -13,20 +13,23 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.mapstruct;
+package me.zhengjie.service.dto;
 
-import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.ExaminationPaper;
-import me.zhengjie.service.dto.ExaminationPaperDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import lombok.Data;
+import me.zhengjie.annotation.Query;
 
 /**
 * @website https://eladmin.vip
 * @author nwl
 * @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {ExaminationPaperProblemMapper.class, ProblemSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ExaminationPaperMapper extends BaseMapper<ExaminationPaperDto, ExaminationPaper> {
+@Data
+public class ExaminationPaperProblemQueryCriteria {
 
+    /** 精确 */
+    @Query
+    private Long id;
+
+    @Query
+    private Long examinationPaperId;
 }

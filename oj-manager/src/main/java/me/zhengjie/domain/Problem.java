@@ -87,17 +87,17 @@ public class Problem implements Serializable {
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "problem")
     private List<AnswerRecord> answerRecords;
-    @JSONField(serialize = false)
-    @ManyToMany(mappedBy = "problems")
-    private List<ExaminationPaper> examinationPapers;
-    @JSONField(serialize = false)
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-    @JoinTable(
-            name = "oj_problem_knowledge",
-            joinColumns = {@JoinColumn(name = "problem_id")},
-            inverseJoinColumns = {@JoinColumn(name = "knowledge_id")}
-    )
-    private List<Knowledge> knowledges;
+//    @JSONField(serialize = false)
+//    @ManyToMany(mappedBy = "problems")
+//    private List<ExaminationPaper> examinationPapers;
+//    @JSONField(serialize = false)
+//    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+//    @JoinTable(
+//            name = "oj_problem_knowledge",
+//            joinColumns = {@JoinColumn(name = "problem_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "knowledge_id")}
+//    )
+//    private List<Knowledge> knowledges;
     @JSONField(serialize = false)
     @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(
@@ -106,6 +106,11 @@ public class Problem implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "label_id")}
     )
     private List<Label> labels;
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "problem_id")
+    private List<ProblemKnowledge> problemKnowledges;
+    @OneToMany(mappedBy = "problem")
+    private List<ExaminationPaperProblem> examinationPaperProblems;
     public void copy(Problem source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

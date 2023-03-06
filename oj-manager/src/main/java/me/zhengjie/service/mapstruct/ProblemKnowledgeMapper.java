@@ -16,8 +16,8 @@
 package me.zhengjie.service.mapstruct;
 
 import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.Problem;
-import me.zhengjie.service.dto.ProblemDto;
+import me.zhengjie.domain.ProblemKnowledge;
+import me.zhengjie.service.dto.ProblemKnowledgeDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -26,7 +26,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-14
 **/
-@Mapper(componentModel = "spring",uses = {ProblemKnowledgeMapper.class, ExaminationPaperProblemMapper.class, HintSmallMapper.class, AnswerRecordSmallMapper.class,SolutionSmallMapper.class, ExaminationPaperMapper.class, LanguageSmallMapper.class, KnowledgeSmallMapper.class, StandardIoSmallMapper.class, LabelSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ProblemMapper extends BaseMapper<ProblemDto, Problem> {
+@Mapper(componentModel = "spring",uses = {ProblemSmallMapper.class,KnowledgeSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface ProblemKnowledgeMapper extends BaseMapper<ProblemKnowledgeDto, ProblemKnowledge> {
 
 }

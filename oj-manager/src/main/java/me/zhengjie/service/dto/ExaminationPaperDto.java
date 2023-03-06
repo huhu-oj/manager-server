@@ -48,4 +48,6 @@ public class ExaminationPaperDto implements Serializable {
     private String descriptionHtml;
 
     private List<ProblemSmallDto> problems;
+
+    private List<ExaminationPaperProblemDto> examinationPaperProblems;
 }

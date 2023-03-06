@@ -20,6 +20,7 @@ import me.zhengjie.domain.*;
 import me.zhengjie.repository.*;
 import me.zhengjie.service.ProblemService;
 import me.zhengjie.service.dto.ProblemDto;
+import me.zhengjie.service.dto.ProblemKnowledgeQueryCriteria;
 import me.zhengjie.service.dto.ProblemQueryCriteria;
 import me.zhengjie.service.mapstruct.ProblemMapper;
 import me.zhengjie.utils.FileUtil;
@@ -58,6 +59,8 @@ public class ProblemServiceImpl implements ProblemService {
     private final StandardIoRepository standardIoRepository;
 
     private final SolutionRepository solutionRepository;
+
+    private final ProblemKnowledgeRepository problemKnowledgeRepository;
     @Override
     public Map<String,Object> queryAll(ProblemQueryCriteria criteria, Pageable pageable){
         Page<Problem> page = problemRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -85,8 +88,8 @@ public class ProblemServiceImpl implements ProblemService {
         List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
         resources.setLabels(labels);
 
-        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
-        resources.setKnowledges(knowledges);
+//        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
+//        resources.setKnowledges(knowledges);
 
         resources.getSolutions().forEach(solution -> {
             List<Label> solutionLabels = labelRepository.findAllById(solution.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
@@ -106,8 +109,14 @@ public class ProblemServiceImpl implements ProblemService {
         List<Label> labels = labelRepository.findAllById(resources.getLabels().stream().map(Label::getId).collect(Collectors.toList()));
         resources.setLabels(labels);
 
-        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
-        resources.setKnowledges(knowledges);
+//        List<Knowledge> knowledges = knowledgeRepository.findAllById(resources.getKnowledges().stream().map(Knowledge::getId).collect(Collectors.toList()));
+//        resources.setKnowledges(knowledges);
+
+        //手动删除关联表
+        ProblemKnowledgeQueryCriteria criteria = new ProblemKnowledgeQueryCriteria();
+        criteria.setProblemId(resources.getId());
+        List<ProblemKnowledge> todelete = problemKnowledgeRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder));
+        problemKnowledgeRepository.deleteAll(todelete);
 
         //处理新增和删除的提示
         resources.setHints(resources.getHints().stream().map(hint -> {

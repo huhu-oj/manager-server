@@ -52,4 +52,5 @@ public class ProblemDto implements Serializable {
     private List<AnswerRecordSmallDto> answerRecords;
     private List<KnowledgeSmallDto> knowledges;
     private List<LabelSmallDto> labels;
+    private List<ProblemKnowledgeDto> problemKnowledges;
 }

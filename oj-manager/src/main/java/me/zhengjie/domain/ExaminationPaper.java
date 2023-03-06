@@ -15,24 +15,19 @@
 */
 package me.zhengjie.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.*;
-import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -80,13 +75,17 @@ public class ExaminationPaper implements Serializable {
     @OneToMany(mappedBy="examinationPaper")
     private List<Test> tests;
 
-    @ManyToMany
-    @JoinTable(
-            name = "oj_examination_paper_problem",
-            joinColumns = {@JoinColumn(name = "examination_paper_id")},
-            inverseJoinColumns = {@JoinColumn(name = "problem_id")}
-    )
-    private List<Problem> problems;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "oj_examination_paper_problem",
+//            joinColumns = {@JoinColumn(name = "examination_paper_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "problem_id")}
+//    )
+//    private List<Problem> problems;
+
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinColumn(name = "examination_paper_id")
+    private List<ExaminationPaperProblem> examinationPaperProblems;
     public void copy(ExaminationPaper source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
