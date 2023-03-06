@@ -33,7 +33,7 @@ public class AnswerRecordDto implements Serializable {
     private Long id;
 
     /** 所属题目 */
-    private Problem problem;
+    private ProblemSmallDto problem;
 
     /** 所属用户 */
     private Long userId;
