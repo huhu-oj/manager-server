@@ -17,6 +17,7 @@ package me.zhengjie.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+import java.util.List;
 /**
 * @website https://eladmin.vip
 * @description /
@@ -66,6 +67,10 @@ public class Test implements Serializable {
     @NotNull
     @ApiModelProperty(value = "试卷id")
     private ExaminationPaper examinationPaper;
+
+    @JSONField(serialize = false)
+    @OneToMany(mappedBy="test")
+    private List<AnswerRecord> answerRecords;
 
     @Column(name = "`start_time`",nullable = false)
     @NotNull

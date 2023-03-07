@@ -19,6 +19,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -39,6 +40,8 @@ public class TestDto implements Serializable {
 
     /** 试卷id */
     private ExaminationPaperSmallDto examinationPaper;
+
+    private List<AnswerRecordSmallDto> answerRecords;
 
     /** 开始时间 */
     private Timestamp startTime;

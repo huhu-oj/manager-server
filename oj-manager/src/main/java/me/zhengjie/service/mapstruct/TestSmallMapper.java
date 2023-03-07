@@ -18,6 +18,7 @@ package me.zhengjie.service.mapstruct;
 import me.zhengjie.base.BaseMapper;
 import me.zhengjie.domain.Test;
 import me.zhengjie.service.dto.TestDto;
+import me.zhengjie.service.dto.TestSmallDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -26,7 +27,7 @@ import org.mapstruct.ReportingPolicy;
 * @author nwl
 * @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {AnswerRecordSmallMapper.class, ExaminationPaperSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface TestMapper extends BaseMapper<TestDto, Test> {
+@Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface TestSmallMapper extends BaseMapper<TestSmallDto, Test> {
 
 }

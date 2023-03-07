@@ -13,20 +13,24 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.service.mapstruct;
+package me.zhengjie.service.dto;
 
-import me.zhengjie.base.BaseMapper;
-import me.zhengjie.domain.Test;
-import me.zhengjie.service.dto.TestDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * @website https://eladmin.vip
+* @description /
 * @author nwl
 * @date 2023-02-13
 **/
-@Mapper(componentModel = "spring",uses = {AnswerRecordSmallMapper.class, ExaminationPaperSmallMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface TestMapper extends BaseMapper<TestDto, Test> {
+@Data
+public class TestSmallDto implements Serializable {
 
+    private Long id;
+
+    /** 标题 */
+    private String title;
 }

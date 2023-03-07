@@ -46,6 +46,7 @@ public class AnswerRecordDto implements Serializable {
 
     /** 所属语言 */
     private LanguageSmallDto language;
+    private TestSmallDto test;
 
     /** 日志 */
     private String log;

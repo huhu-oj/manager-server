@@ -84,6 +84,12 @@ public class AnswerRecord implements Serializable {
     @NotNull
     @ApiModelProperty(value = "所属语言")
     private Language language;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "`test_id`")
+    @NotNull
+    @ApiModelProperty(value = "所属测验")
+    private Test test;
     @Column(name = "`log`")
     @NotBlank
     @ApiModelProperty(value = "日志")
