@@ -25,6 +25,7 @@ public class AnswerRecordSmallDto {
 
     /** 所属语言 */
     private LanguageSmallDto language;
+    private ProblemSmallDto problem;
 
     /** 日志 */
     private String log;

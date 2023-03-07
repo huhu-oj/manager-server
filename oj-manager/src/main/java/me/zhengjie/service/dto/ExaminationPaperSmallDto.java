@@ -2,6 +2,8 @@ package me.zhengjie.service.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Description
  * @Author nwl
@@ -20,4 +22,6 @@ public class ExaminationPaperSmallDto {
 
     /** 描述渲染文本 */
     private String descriptionHtml;
+
+    private List<ExaminationPaperProblemDto> examinationPaperProblems;
 }

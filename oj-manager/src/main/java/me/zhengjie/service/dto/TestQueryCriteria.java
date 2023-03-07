@@ -41,12 +41,12 @@ public class TestQueryCriteria{
     @Query(type = Query.Type.LESS_THAN)
     private Timestamp endTime;
 
-    @Query
-    private Long id;
+//    @Query
+//    private Long id;
 
     @Query
     private Long userId;
 
     @Query(type = Query.Type.IN)
-    private List<Long> ids;
+    private List<Long> id;
 }

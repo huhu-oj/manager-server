@@ -62,6 +62,14 @@ public class TestController {
         return new ResponseEntity<>(testService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
+    @GetMapping("all")
+    @Log("查询所有测验")
+    @ApiOperation("查询所有测验")
+    @PreAuthorize("@el.check('test:list')")
+    public ResponseEntity<Object> queryAllTest(TestQueryCriteria criteria){
+        return new ResponseEntity<>(testService.queryAll(criteria),HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增测验")
     @ApiOperation("新增测验")
