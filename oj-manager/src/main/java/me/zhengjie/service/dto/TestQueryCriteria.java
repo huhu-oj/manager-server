@@ -19,6 +19,7 @@ import lombok.Data;
 import me.zhengjie.annotation.Query;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
 * @website https://eladmin.vip
@@ -45,4 +46,7 @@ public class TestQueryCriteria{
 
     @Query
     private Long userId;
+
+    @Query(type = Query.Type.IN)
+    private List<Long> ids;
 }

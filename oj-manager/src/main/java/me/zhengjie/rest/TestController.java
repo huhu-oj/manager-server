@@ -54,13 +54,6 @@ public class TestController {
         testService.download(testService.queryAll(criteria), response);
     }
 
-    @GetMapping("ids")
-    @Log("查询测验列表")
-    @ApiOperation("查询测验列表")
-    @PreAuthorize("@el.check('test:list')")
-    public ResponseEntity<Object> queryTest(@RequestBody List<Long> testIds){
-        return new ResponseEntity<>(testService.batchQueryById(testIds),HttpStatus.OK);
-    }
     @GetMapping
     @Log("查询测验")
     @ApiOperation("查询测验")

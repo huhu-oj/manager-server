@@ -82,5 +82,4 @@ public interface TestService {
     */
     void download(List<TestDto> all, HttpServletResponse response) throws IOException;
 
-    List<TestDto> batchQueryById(List<Long> testIds);
 }
