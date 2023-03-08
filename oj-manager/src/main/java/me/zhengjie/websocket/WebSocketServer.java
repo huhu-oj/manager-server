@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.modules.mnt.websocket;
+package me.zhengjie.websocket;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +25,14 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArraySet;
+
 /**
  * @author ZhangHouYing
  * @date 2019-08-10 15:46
  */
-//@ServerEndpoint("/webSocket/{sid}")
+@ServerEndpoint("/webSocket/{sid}")
 @Slf4j
-//@Component
+@Component
 public class WebSocketServer {
 
 	/**
@@ -104,8 +105,8 @@ public class WebSocketServer {
 	/**
 	 * 群发自定义消息
 	 * */
-	public static void sendInfo(SocketMsg socketMsg,@PathParam("sid") String sid) throws IOException {
-		String message = JSONObject.toJSONString(socketMsg);
+	public static void sendInfo(String message,@PathParam("sid") String sid) throws IOException {
+//		String message = JSONObject.toJSONString(socketMsg);
 		log.info("推送消息到"+sid+"，推送内容:"+message);
 		for (WebSocketServer item : webSocketSet) {
 			try {
