@@ -17,11 +17,5 @@ public class SolutionSmallDto {
     /** 标题 */
     private String title;
 
-    /** 描述 */
-    private String description;
-
-    /** 渲染文本 */
-    private String descriptionHtml;
-
     private List<LabelSmallDto> labels;
 }

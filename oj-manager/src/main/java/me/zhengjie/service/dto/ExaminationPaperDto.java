@@ -47,7 +47,7 @@ public class ExaminationPaperDto implements Serializable {
     /** 描述渲染文本 */
     private String descriptionHtml;
 
-    private List<ProblemSmallDto> problems;
+//    private List<ProblemSmallDto> problems;
 
     private List<ExaminationPaperProblemDto> examinationPaperProblems;
 }

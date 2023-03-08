@@ -12,12 +12,9 @@ public class KnowledgeSmallDto {
 
     private Long id;
 
-    /** 名称 */
+    /**
+     * 名称
+     */
     private String name;
 
-    /** 描述 */
-    private String description;
-
-    /** 渲染文本 */
-    private String descriptionHtml;
 }

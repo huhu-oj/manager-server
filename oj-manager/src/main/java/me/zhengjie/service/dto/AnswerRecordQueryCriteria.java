@@ -29,7 +29,8 @@ public class AnswerRecordQueryCriteria{
     /** 精确 */
     @Query(joinName = "problem", propName="id")
     private Long problemId;
-
+    @Query(joinName = "test", propName="id")
+    private Long testId;
     /** 精确 */
     @Query
     private Long userId;

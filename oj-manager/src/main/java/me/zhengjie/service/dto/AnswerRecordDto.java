@@ -61,7 +61,7 @@ public class AnswerRecordDto implements Serializable {
     private Integer notPassNum;
 
     /** 执行结果 */
-    private ExecuteResultSmallDto executeResult;
+    private ExecuteResultDto executeResult;
 
     /** 备注 */
     private String note;

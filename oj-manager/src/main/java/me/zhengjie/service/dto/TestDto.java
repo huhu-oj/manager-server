@@ -39,7 +39,7 @@ public class TestDto implements Serializable {
     private String description;
 
     /** 试卷id */
-    private ExaminationPaperSmallDto examinationPaper;
+    private TestExaminationPaperDto examinationPaper;
 
     private List<AnswerRecordSmallDto> answerRecords;
 

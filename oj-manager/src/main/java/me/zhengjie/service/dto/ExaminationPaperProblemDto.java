@@ -13,7 +13,7 @@ public class ExaminationPaperProblemDto {
 //    private Long id;
 
 
-    private Long examinationPaperId;
+//    private Long examinationPaperId;
 
     private ProblemSmallDto problem;
 
