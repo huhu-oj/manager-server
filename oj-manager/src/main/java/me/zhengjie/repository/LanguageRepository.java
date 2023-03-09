@@ -19,10 +19,14 @@ import me.zhengjie.domain.Language;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 /**
 * @website https://eladmin.vip
 * @author nwl
 * @date 2023-02-07
 **/
 public interface LanguageRepository extends JpaRepository<Language, Long>, JpaSpecificationExecutor<Language> {
+
+    List<Language> findByNameIn(List<String> name);
 }

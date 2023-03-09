@@ -20,7 +20,9 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.JudgeMachine;
+import me.zhengjie.domain.Language;
 import me.zhengjie.repository.JudgeMachineRepository;
+import me.zhengjie.repository.LanguageRepository;
 import me.zhengjie.service.JudgeMachineService;
 import me.zhengjie.service.dto.JudgeMachineDto;
 import me.zhengjie.service.dto.JudgeMachineQueryCriteria;
@@ -52,6 +54,7 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
 
     private final JudgeMachineRepository judgeMachineRepository;
     private final JudgeMachineMapper judgeMachineMapper;
+    private final LanguageRepository languageRepository;
     private final HashMap<Long,JudgeMachineDto> onlineJudgeMachineMap = new HashMap<>();
 
     @PostConstruct
@@ -178,7 +181,20 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
 //        System.out.println(onlineJudgeMachineMap);
         JudgeMachineQueryCriteria criteria = new JudgeMachineQueryCriteria();
         criteria.setUrl(request.getUrl());
-        JudgeMachineDto judgeMachineDto = judgeMachineMapper.toDto(judgeMachineRepository.findOne((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)).orElseThrow(RuntimeException::new));
+        JudgeMachine judgeMachine = judgeMachineRepository.findOne((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)).orElseThrow(RuntimeException::new);
+        JudgeMachineDto judgeMachineDto = judgeMachineMapper.toDto(judgeMachine);
+        //检查更新
+        if (!judgeMachine.getSupportLanguage().equals(request.getSupportLanguage())) {
+            //获取需要更新的语言
+            List<String> languageNames = Arrays.asList(request.getSupportLanguage().split(","));
+            List<Language> languages = languageRepository.findByNameIn(languageNames);
+            //更新语言
+            judgeMachine.setLanguages(languages);
+            judgeMachine.setSupportLanguage(request.getSupportLanguage());
+            update(judgeMachine);
+            judgeMachineDto = judgeMachineMapper.toDto(judgeMachine);
+
+        }
         //维护在线列表
         judgeMachineDto.setEnabled(request.getEnabled());
         onlineJudgeMachineMap.put(judgeMachineDto.getId(),judgeMachineDto);
