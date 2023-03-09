@@ -15,7 +15,6 @@
 */
 package me.zhengjie.service.impl;
 
-import cn.hutool.cron.CronUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +32,7 @@ import me.zhengjie.utils.QueryHelp;
 import me.zhengjie.utils.ValidationUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,13 +65,9 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
         judgeMachineDtos.forEach(dto->{
             onlineJudgeMachineMap.put(dto.getId(),dto);
         });
-        CronUtil.schedule("*/12 * * * * *", (Runnable) this::checkOnlineHost);
-
-        // 支持秒级别定时任务
-        CronUtil.setMatchSecond(true);
-        CronUtil.start();
     }
     @Transactional
+    @Scheduled(cron = "*/12 * * * * *")
     void checkOnlineHost() {
         //遍历map
         onlineJudgeMachineMap.forEach((id,host)->{
