@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class ProblemKnowledgeDto {
 
-    private Long problemId;
+//    private Long problemId;
 
     private KnowledgeSmallDto knowledge;
 

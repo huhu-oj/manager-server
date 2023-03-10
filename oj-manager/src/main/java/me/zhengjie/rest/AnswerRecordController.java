@@ -53,6 +53,13 @@ public class AnswerRecordController {
         answerRecordService.download(answerRecordService.queryAll(criteria), response);
     }
 
+    @GetMapping("all")
+    @Log("查询所有做题记录")
+    @ApiOperation("查询所有做题记录")
+    @PreAuthorize("@el.check('answerRecord:list')")
+    public ResponseEntity<Object> queryAllAnswerRecord(AnswerRecordQueryCriteria criteria){
+        return new ResponseEntity<>(answerRecordService.queryAll(criteria),HttpStatus.OK);
+    }
     @GetMapping
     @Log("查询做题记录")
     @ApiOperation("查询做题记录")
