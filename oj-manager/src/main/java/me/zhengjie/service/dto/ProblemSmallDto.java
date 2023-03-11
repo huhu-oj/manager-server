@@ -17,6 +17,6 @@ public class ProblemSmallDto {
     /** 标题 */
     private String title;
 
-    private List<ProblemKnowledgeDto> knowledgeSmalls;
+    private List<ProblemKnowledgeDto> problemKnowledges;
     private List<LabelSmallDto> labels;
 }

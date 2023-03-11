@@ -103,6 +103,14 @@ public class UserController {
         return new ResponseEntity<>(PageUtil.toPage(null,0),HttpStatus.OK);
     }
 
+    @Log("通过username查询用户")
+    @ApiOperation("通过username查询用户")
+    @GetMapping("name")
+    @PreAuthorize("@el.check('user:list')")
+    public ResponseEntity<Object> queryUserByUsername(String username){
+        return new ResponseEntity<>(userService.findByName(username),HttpStatus.OK);
+    }
+
     @Log("新增用户")
     @ApiOperation("新增用户")
     @PostMapping

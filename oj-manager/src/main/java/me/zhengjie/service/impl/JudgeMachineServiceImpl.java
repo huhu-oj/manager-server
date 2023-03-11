@@ -117,6 +117,7 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
         if (resources.getId() != null && resources.getId() != 0) {
             JudgeMachine judgeMachine = judgeMachineRepository.findById(resources.getId()).orElseGet(JudgeMachine::new);
             judgeMachine.copy(resources);
+
             JudgeMachineDto judgeMachineDto = judgeMachineMapper.toDto(judgeMachineRepository.save(judgeMachine));
 
             onlineJudgeMachineMap.put(judgeMachineDto.getId(),judgeMachineDto);
@@ -127,6 +128,10 @@ public class JudgeMachineServiceImpl implements JudgeMachineService {
             }
             return judgeMachineDto;
         } else {
+            List<String> languageNames = Arrays.asList(resources.getSupportLanguage().split(","));
+            List<Language> languages = languageRepository.findByNameIn(languageNames);
+            //更新语言
+            resources.setLanguages(languages);
             JudgeMachineDto judgeMachineDto = create(resources);
             onlineJudgeMachineMap.put(judgeMachineDto.getId(),judgeMachineDto);
             if (!HttpRequest.post(judgeMachineDto.getUrl()+"/api/v1/config")

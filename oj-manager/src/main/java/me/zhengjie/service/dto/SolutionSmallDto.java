@@ -17,5 +17,7 @@ public class SolutionSmallDto {
     /** 标题 */
     private String title;
 
+    private String description;
+
     private List<LabelSmallDto> labels;
 }
