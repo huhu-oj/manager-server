@@ -35,4 +35,7 @@ public class SolutionQueryCriteria{
     private Long problemId;
     @Query
     private Long id;
+
+    @Query
+    private Long userId;
 }
