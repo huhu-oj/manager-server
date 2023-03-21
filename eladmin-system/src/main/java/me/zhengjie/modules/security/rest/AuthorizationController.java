@@ -79,10 +79,10 @@ public class AuthorizationController {
     @ApiOperation("登录授权")
     @AnonymousPostMapping(value = "/login")
     public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
-        boolean isLocal = request.getRemoteHost().equals("127.0.0.1");
+//        boolean isLocal = false;
         // 密码解密
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
-        if (!isLocal) {
+//        if (!isLocal) {
             // 查询验证码
             String code = (String) redisUtils.get(authUser.getUuid());
             // 清除验证码
@@ -93,7 +93,7 @@ public class AuthorizationController {
             if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
                 throw new BadRequestException("验证码错误");
             }
-        }
+//        }
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(authUser.getUsername(), password);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
@@ -105,11 +105,11 @@ public class AuthorizationController {
         String token = tokenProvider.createToken(authentication);
         final JwtUserDto jwtUserDto = (JwtUserDto) authentication.getPrincipal();
         // 保存在线信息
-        if (isLocal) {
-            onlineUserService.saveLocal(jwtUserDto, token, request);
-        } else {
+//        if (isLocal) {
+//            onlineUserService.saveLocal(jwtUserDto, token, request);
+//        } else {
             onlineUserService.save(jwtUserDto, token, request);
-        }
+//        }
         // 返回 token 与 用户信息
         Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
             put("token", properties.getTokenStartWith() + token);
